@@ -1,0 +1,6 @@
+Dear {0} {1},
+
+This email is to confirm that you have been successfully registered with FlipFeed!
+
+Regards,
+{2}

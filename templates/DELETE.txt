@@ -1,0 +1,6 @@
+Dear {0},
+
+I am emailing you to say that I no longer wish to use the FlipFeed app and so would like my account to be removed.
+
+Regards,
+{1} {2}

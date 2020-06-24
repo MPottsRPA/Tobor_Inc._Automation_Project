@@ -1,0 +1,10 @@
+{
+	"GmailUsername":"melrpa16@gmail.com",
+	"GmailPassword":"Rinokumura16",
+	"sendGmailPort":587,
+	"sendServer":"smtp.gmail.com",
+	"getGmailPort":993,
+	"getServer":"imap.gmail.com",
+	"OutlookUsername":"robotrpa66@outlook.com",
+	"OutlookPassword":"pPPiktW7Xuc9y9n"
+}
