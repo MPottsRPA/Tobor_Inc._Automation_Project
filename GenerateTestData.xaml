@@ -1,13 +1,15 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="GenerateTestData" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="GenerateTestData" this:GenerateTestData.quantity="50" this:GenerateTestData.maxCount="11" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="ExtractAddressPhone" Type="OutArgument(sd:DataTable)" />
     <x:Property Name="ExtractFirstName" Type="OutArgument(sd:DataTable)" />
     <x:Property Name="ExtractLastName" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractAddressPhone" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="quantity" Type="InArgument(x:Int32)" />
+    <x:Property Name="maxCount" Type="InArgument(x:Int32)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1313,5406</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1416,5366</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GenerateTestData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
@@ -36,7 +38,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="16">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -53,26 +55,27 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="GenerateTestData" sap:VirtualizedContainerService.HintSize="676,5201" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <Sequence.Variables>
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractLastName" />
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractFirstName" />
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractAddressPhone" />
-    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="634,4963" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="https://www.bestrandoms.com/random-names">
+    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="634,5109" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="https://www.bestrandoms.com/random-names">
       <ui:OpenBrowser.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Extract Details" sap:VirtualizedContainerService.HintSize="600,4862" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <Sequence DisplayName="Extract Details" sap:VirtualizedContainerService.HintSize="600,5008" sap2010:WorkflowViewState.IdRef="Sequence_8">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -98,7 +101,7 @@
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into Quantity" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" Text="50">
+                    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into Quantity" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" Text="[quantity.ToString]">
                       <ui:TypeInto.Target>
                         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4ba3b437-d241-4eb6-9d94-40fc986da250" InformativeScreenshot="d54b71ec589636bc4d828ae8da9fc247" Selector="&lt;webctrl name='quantity' tag='INPUT' /&gt;">
                           <ui:Target.TimeoutMS>
@@ -136,7 +139,7 @@
                       <ActivityAction.Argument>
                         <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
                       </ActivityAction.Argument>
-                      <Sequence sap:VirtualizedContainerService.HintSize="839,805" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                      <Sequence sap:VirtualizedContainerService.HintSize="839,765" sap2010:WorkflowViewState.IdRef="Sequence_21">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -207,7 +210,7 @@
               </TryCatch>
               <TryCatch DisplayName="Try Catch extracting first name data" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                 <TryCatch.Try>
-                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractFirstName]" DisplayName="Extract First name" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='FirstName' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-70' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-12 col-md-6'/&gt;&lt;webctrl tag='p' class='text-center font-18' idx='1'/&gt;&lt;webctrl tag='b' idx='1'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_4" MaxNumberOfResults="100" SimulateClick="True">
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractFirstName]" DisplayName="Extract First name" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='First Name' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-70' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-12 col-md-6'/&gt;&lt;webctrl tag='p' class='text-center font-18' idx='1'/&gt;&lt;webctrl tag='b' idx='1'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_4" MaxNumberOfResults="100" SimulateClick="True">
                     <ui:ExtractData.Target>
                       <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="abb93e10-3adc-407b-bb2c-3d6499ddd21c" InformativeScreenshot="0b56de9f9592a520ad21fa303c1eb2eb" Selector="&lt;webctrl id='main' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
                         <ui:Target.TimeoutMS>
@@ -229,7 +232,7 @@
                       <ActivityAction.Argument>
                         <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
                       </ActivityAction.Argument>
-                      <Sequence sap:VirtualizedContainerService.HintSize="797,667" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                      <Sequence sap:VirtualizedContainerService.HintSize="797,627" sap2010:WorkflowViewState.IdRef="Sequence_23">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:Boolean" Name="exists" />
                         </Sequence.Variables>
@@ -300,7 +303,7 @@
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into Quantity" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="50">
+                    <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" DisplayName="Type Into Quantity" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="[quantity.ToString]">
                       <ui:TypeInto.Target>
                         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3f84f4be-b29c-4e83-afc4-6ded75e05c9f" InformativeScreenshot="a1023ac526fbc1f7063989e7fa80707b" Selector="&lt;webctrl name='quantity' tag='INPUT' /&gt;">
                           <ui:Target.TimeoutMS>
@@ -412,7 +415,7 @@
               </TryCatch>
               <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_4">
                 <TryCatch.Try>
-                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractLastName]" DisplayName="Extract Last name" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='LastName' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-70' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-12 col-md-6'/&gt;&lt;webctrl tag='p' class='text-center font-18' idx='1'/&gt;&lt;webctrl tag='b' idx='1'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_5" MaxNumberOfResults="100" SimulateClick="True">
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractLastName]" DisplayName="Extract Last name" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Last Name' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-70' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-12 col-md-6'/&gt;&lt;webctrl tag='p' class='text-center font-18' idx='1'/&gt;&lt;webctrl tag='b' idx='1'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_5" MaxNumberOfResults="100" SimulateClick="True">
                     <ui:ExtractData.Target>
                       <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bd7bc383-26c7-4794-ad6e-e3bff73af2fb" InformativeScreenshot="88478a12730b77bf2fb7eed2a523e8ce" Selector="&lt;webctrl id='main' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
                         <ui:Target.TimeoutMS>
@@ -517,7 +520,7 @@
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractAddressPhone]" DisplayName="Extract addres and phone details" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;/row&gt;&lt;column exact='1' name='Address' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='City' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='2'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Zip Code' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='4'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Country' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Phone Number' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='3'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Calling Code' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='5'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_14" MaxNumberOfResults="100" SimulateClick="True">
+                          <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractAddressPhone]" DisplayName="Extract addres and phone details" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;/row&gt;&lt;column exact='1' name='Address' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='City' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='2'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Zip Code' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='4'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Country' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Phone Number' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='3'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Calling Code' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='col-xs-12 col-sm-9 main' idx='1'/&gt;&lt;webctrl tag='ul' class='list-unstyled content height-130' idx='1'/&gt;&lt;webctrl tag='li' class='col-sm-6'/&gt;&lt;webctrl tag='p' idx='5'/&gt;&lt;webctrl tag='span' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_14" MaxNumberOfResults="[quantity]" SimulateClick="True">
                             <ui:ExtractData.Target>
                               <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="555e4b91-f620-4c14-a201-5faab2d6ed5c" InformativeScreenshot="8f43b8657b560ff7a02eedde602c4b05" Selector="&lt;webctrl id='main' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
                                 <ui:Target.TimeoutMS>
@@ -540,7 +543,7 @@
                             <ActivityAction.Argument>
                               <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
                             </ActivityAction.Argument>
-                            <Sequence sap:VirtualizedContainerService.HintSize="797,667" sap2010:WorkflowViewState.IdRef="Sequence_33">
+                            <Sequence sap:VirtualizedContainerService.HintSize="797,627" sap2010:WorkflowViewState.IdRef="Sequence_33">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -698,7 +701,7 @@
                   </Sequence>
                 </ui:InterruptibleWhile.Body>
                 <ui:InterruptibleWhile.Condition>
-                  <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="count &lt; 10" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+                  <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="count &lt; maxCount" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
                 </ui:InterruptibleWhile.Condition>
               </ui:InterruptibleWhile>
               <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[ExtractAddressPhone]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="516,492" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
@@ -774,10 +777,10 @@
               <ui:OutputDataTable DataTable="[ExtractAddressPhone]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="516,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_8" Text="[AddressStr]" />
               <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="516,61" sap2010:WorkflowViewState.IdRef="WriteLine_8" Text="[AddressStr]" />
             </Sequence>
+            <ui:CloseWindow Selector="{x:Null}" TimeoutMS="{x:Null}" UseWindow="{x:Null}" DisplayName="Close Browser" sap:VirtualizedContainerService.HintSize="558,106" sap2010:WorkflowViewState.IdRef="CloseWindow_1" InformativeScreenshot="edccf1b9ffa2d179e8af388521832393" WaitForReady="INTERACTIVE" />
           </Sequence>
         </ActivityAction>
       </ui:OpenBrowser.Body>
     </ui:OpenBrowser>
-    <ui:CloseWindow TimeoutMS="{x:Null}" UseWindow="{x:Null}" DisplayName="Close Browser" sap:VirtualizedContainerService.HintSize="634,106" sap2010:WorkflowViewState.IdRef="CloseWindow_1" InformativeScreenshot="9bf996196945b9e600fe33ae29448de6" Selector="&lt;html app='chrome.exe' htmlwindowname='Hup44ddT' title='Random Address In United Kingdom | Best Random Tools' /&gt;" WaitForReady="INTERACTIVE" />
   </Sequence>
 </Activity>

@@ -1,6 +1,6 @@
 Dear {0} {1},
 
-We are sorry to see you go. Your account will be removed after 3 working days. If you want to keep your account please reply to this email with the subject 'KEEP'.
+This email is to confirm that your account has successfully been deleted.
 
 Regards,
-{2}
+Tobor Inc.

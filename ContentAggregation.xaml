@@ -1,0 +1,113 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ContentAggregation" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1416,1479" sap2010:WorkflowViewState.IdRef="ContentAggregation_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="22">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="16">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="ContentAggregation" sap:VirtualizedContainerService.HintSize="527,1314" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="485,1222" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="https://thisdayintechhistory.com/">
+      <ui:OpenBrowser.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,1121" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="sd:DataTable" Name="ExtractThisDayInTech" />
+              <Variable x:TypeArguments="x:String" Name="ThisDayInTechStr" />
+              <Variable x:TypeArguments="sd:DataTable" Name="ExtractTechRadar" />
+              <Variable x:TypeArguments="x:String" Name="TechRadarStr" />
+              <Variable x:TypeArguments="sd:DataTable" Name="ExtractTechNewsWorld" />
+              <Variable x:TypeArguments="x:String" Name="TechNewsWorldStr" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractThisDayInTech]" DisplayName="Extract data from This Day In Tech History" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='Content Headings' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='header' class='fl-post-header' idx='1'/&gt;&lt;webctrl tag='h2' class='fl-post-title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Content Detail' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='fl-post-content clearfix' idx='1'/&gt;&lt;webctrl tag='p' idx='2'/&gt;&lt;/column&gt;&lt;column exact='1' name='Content Dates' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='fl-post-content clearfix' idx='1'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="2" SimulateClick="True">
+              <ui:ExtractData.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3ffd59c6-8481-4381-9f1a-010c38f069e2" InformativeScreenshot="f46f2f183e807529b0b91ae148e867af" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                </ui:Target>
+              </ui:ExtractData.Target>
+            </ui:ExtractData>
+            <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_2" Url="https://www.technewsworld.com/" />
+            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechNewsWorld]" DisplayName="Extract TechNewsWorld " ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechNewsWorld Headlines' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechNewsWorld Details' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='teaser' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_9" MaxNumberOfResults="2" SimulateClick="True">
+              <ui:ExtractData.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d239c74b-67f2-4ef0-9fa6-79fbdf594e72" InformativeScreenshot="6fbecae0333671617dd155db474c8bad" Selector="&lt;webctrl id='content-main' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                </ui:Target>
+              </ui:ExtractData.Target>
+            </ui:ExtractData>
+            <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="https://www.techradar.com/uk/news/world-of-tech?" />
+            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechRadar]" DisplayName="Extract TechRadar tech news" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechRadar Headlines' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='header' idx='1'/&gt;&lt;webctrl tag='h3' class='article-name' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechRadar Details' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' class='synopsis' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_7" MaxNumberOfResults="2" SimulateClick="True">
+              <ui:ExtractData.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="da83b3ae-02c9-4f23-ac05-4df54460fde3" InformativeScreenshot="f64293e2978b3536de6e868f9a4f0bb1" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
+                  <ui:Target.TimeoutMS>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:Target.TimeoutMS>
+                </ui:Target>
+              </ui:ExtractData.Target>
+            </ui:ExtractData>
+            <ui:OutputDataTable DataTable="[ExtractThisDayInTech]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[ThisDayInTechStr]" />
+            <ui:OutputDataTable DataTable="[ExtractTechNewsWorld]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_3" Text="[TechNewsWorldStr]" />
+            <ui:OutputDataTable DataTable="[ExtractTechRadar]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_2" Text="[TechRadarStr]" />
+            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[ThisDayInTechStr + TechNewsWorldStr + TechRadarStr]" />
+            <ui:CloseWindow Selector="{x:Null}" TimeoutMS="{x:Null}" UseWindow="{x:Null}" DisplayName="Close Window 'chrome.exe  Google'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="CloseWindow_1" InformativeScreenshot="731fe439c8ed2b51622704b2eb6f06b0" WaitForReady="INTERACTIVE" />
+          </Sequence>
+        </ActivityAction>
+      </ui:OpenBrowser.Body>
+    </ui:OpenBrowser>
+  </Sequence>
+</Activity>

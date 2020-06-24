@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1313,1791</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1416,1791</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ConstructDataTable_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="21">
@@ -35,7 +35,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="16">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -52,18 +52,21 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="ConstructDataTable" sap:VirtualizedContainerService.HintSize="955,1626" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractAddressPhone" />
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractFirstName" />
-      <Variable x:TypeArguments="sd:DataTable" Name="ExtractLastName" />
       <Variable x:TypeArguments="sd:DataTable" Name="UserTable" />
       <Variable x:TypeArguments="x:String" Name="UserStr" />
       <Variable x:TypeArguments="x:Int32" Name="UID">
         <Variable.Default>
-          <Literal x:TypeArguments="x:Int32" Value="1" />
+          <Literal x:TypeArguments="x:Int32" />
         </Variable.Default>
       </Variable>
     </Sequence.Variables>
@@ -73,7 +76,7 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:BuildDataTable DataTable="[UserTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="913,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;UID&quot; msdata:AutoIncrement=&quot;true&quot; type=&quot;xs:int&quot; /&gt;&#xA;                &lt;xs:element name=&quot;First_x0020_Name&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Last_x0020_Name&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Address_x0020_Line_x0020_1&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;City&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Post_x0020_Code&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Country&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Telephone&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Email&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Content_x0020_Preference&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Interval&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;      &lt;xs:unique name=&quot;Constraint1&quot;&gt;&#xA;        &lt;xs:selector xpath=&quot;.//TableName&quot; /&gt;&#xA;        &lt;xs:field xpath=&quot;UID&quot; /&gt;&#xA;      &lt;/xs:unique&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
-    <ui:InterruptibleWhile Condition="[UID &lt; 11]" DisplayName="While" sap:VirtualizedContainerService.HintSize="913,796" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+    <ui:InterruptibleWhile DisplayName="While" sap:VirtualizedContainerService.HintSize="913,796" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
       <ui:InterruptibleWhile.Body>
         <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="380,631" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <Sequence.Variables>
@@ -157,7 +160,7 @@
                     <OutArgument x:TypeArguments="x:String">[email]</OutArgument>
                   </ui:AssignOperation.To>
                   <ui:AssignOperation.Value>
-                    <InArgument x:TypeArguments="x:String">["melrpa16+" + UID.ToString + "@gmail.com"]</InArgument>
+                    <InArgument x:TypeArguments="x:String">["melrpa16+" + (UID+1).ToString + "@gmail.com"]</InArgument>
                   </ui:AssignOperation.Value>
                 </ui:AssignOperation>
                 <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_9">
@@ -165,7 +168,7 @@
                     <OutArgument x:TypeArguments="x:String">[contentPreference]</OutArgument>
                   </ui:AssignOperation.To>
                   <ui:AssignOperation.Value>
-                    <InArgument x:TypeArguments="x:String">Science</InArgument>
+                    <InArgument x:TypeArguments="x:String">Tech</InArgument>
                   </ui:AssignOperation.Value>
                 </ui:AssignOperation>
                 <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
@@ -179,7 +182,7 @@
               </scg:List>
             </ui:MultipleAssign.AssignOperations>
           </ui:MultipleAssign>
-          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{UID, fname, lname, addressLine1, city, postCode, country, telephone, email, contentPreference, interval}]" DataTable="[UserTable]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="338,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+          <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{UID+1, fname, lname, addressLine1, city, postCode, country, telephone, email, contentPreference, interval}]" DataTable="[UserTable]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="338,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
           <Assign sap:VirtualizedContainerService.HintSize="338,60" sap2010:WorkflowViewState.IdRef="Assign_1">
             <Assign.To>
               <OutArgument x:TypeArguments="x:Int32">[UID]</OutArgument>
@@ -190,8 +193,11 @@
           </Assign>
         </Sequence>
       </ui:InterruptibleWhile.Body>
+      <ui:InterruptibleWhile.Condition>
+        <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="UID &lt; 50" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_3" />
+      </ui:InterruptibleWhile.Condition>
     </ui:InterruptibleWhile>
-    <If Condition="[File.Exists(&quot;C:\Users\user\Documents\UiPath\IndividualProject\testOutput.xlsx&quot;)]" DisplayName="Check if file already exists" sap:VirtualizedContainerService.HintSize="913,436" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[File.Exists(&quot;C:\Users\user\Documents\UiPath\Content_Aggregation_Automation-master\testOutput.xlsx&quot;)]" DisplayName="Check if file already exists" sap:VirtualizedContainerService.HintSize="913,436" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Write to existing excel file" sap:VirtualizedContainerService.HintSize="434,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="testOutput.xlsx">
           <ui:ExcelApplicationScope.Body>
