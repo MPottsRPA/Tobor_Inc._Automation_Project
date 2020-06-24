@@ -1,7 +1,0 @@
-Dear {0},
-
-I am contacting because some of my personal details have recently changed. 
-I would like to update my {1}, {2} and {3} details to {4}, {5} and {6}.
-
-Regards,
-{1} {2}
