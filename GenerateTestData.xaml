@@ -5,11 +5,14 @@
     <x:Property Name="ExtractAddressPhone" Type="OutArgument(sd:DataTable)" />
     <x:Property Name="quantity" Type="InArgument(x:Int32)" />
     <x:Property Name="maxCount" Type="InArgument(x:Int32)" />
+    <x:Property Name="bestRandomsFname" Type="InArgument(x:String)" />
+    <x:Property Name="bestRandomsLname" Type="InArgument(x:String)" />
+    <x:Property Name="bestRandomsAddress" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1416,5366</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1032,5366</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>GenerateTestData_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
@@ -60,7 +63,6 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.CV</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="GenerateTestData" sap:VirtualizedContainerService.HintSize="676,5201" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -69,7 +71,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="634,5109" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="https://www.bestrandoms.com/random-names">
+    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="634,5109" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="[bestRandomsFname]">
       <ui:OpenBrowser.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -139,7 +141,7 @@
                       <ActivityAction.Argument>
                         <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
                       </ActivityAction.Argument>
-                      <Sequence sap:VirtualizedContainerService.HintSize="839,765" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                      <Sequence sap:VirtualizedContainerService.HintSize="839,805" sap2010:WorkflowViewState.IdRef="Sequence_21">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -232,7 +234,7 @@
                       <ActivityAction.Argument>
                         <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
                       </ActivityAction.Argument>
-                      <Sequence sap:VirtualizedContainerService.HintSize="797,627" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                      <Sequence sap:VirtualizedContainerService.HintSize="797,667" sap2010:WorkflowViewState.IdRef="Sequence_23">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:Boolean" Name="exists" />
                         </Sequence.Variables>
@@ -294,7 +296,7 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="https://www.bestrandoms.com/random-last-names" />
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="[bestRandomsLname]" />
               <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,647" sap2010:WorkflowViewState.IdRef="TryCatch_3">
                 <TryCatch.Try>
                   <Sequence DisplayName="Try typing in the quantity" sap:VirtualizedContainerService.HintSize="376,420" sap2010:WorkflowViewState.IdRef="Sequence_24">
@@ -500,7 +502,7 @@
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="516,59" sap2010:WorkflowViewState.IdRef="NavigateTo_3" Url="https://www.bestrandoms.com/random-address-in-uk" />
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="516,59" sap2010:WorkflowViewState.IdRef="NavigateTo_3" Url="[bestRandomsAddress]" />
               <ui:InterruptibleWhile DisplayName="While" sap:VirtualizedContainerService.HintSize="516,1155" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_5">
                 <ui:InterruptibleWhile.Body>
                   <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="480,990" sap2010:WorkflowViewState.IdRef="Sequence_14">

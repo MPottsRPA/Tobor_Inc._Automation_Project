@@ -1,8 +1,11 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ConstructDataTable" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ConstructDataTable" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="ExtractAddressPhone" Type="InArgument(sd:DataTable)" />
     <x:Property Name="ExtractFirstName" Type="InArgument(sd:DataTable)" />
     <x:Property Name="ExtractLastName" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="Spreadsheet" Type="InArgument(x:String)" />
+    <x:Property Name="contentSubject" Type="InArgument(s:String[])" />
+    <x:Property Name="intervalPref" Type="InArgument(s:String[])" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -64,11 +67,7 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="UserTable" />
       <Variable x:TypeArguments="x:String" Name="UserStr" />
-      <Variable x:TypeArguments="x:Int32" Name="UID">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:Int32" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="UID" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -168,7 +167,7 @@
                     <OutArgument x:TypeArguments="x:String">[contentPreference]</OutArgument>
                   </ui:AssignOperation.To>
                   <ui:AssignOperation.Value>
-                    <InArgument x:TypeArguments="x:String">Tech</InArgument>
+                    <InArgument x:TypeArguments="x:String">[contentSubject(new Random().Next(0, contentSubject.Length))]</InArgument>
                   </ui:AssignOperation.Value>
                 </ui:AssignOperation>
                 <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
@@ -176,7 +175,7 @@
                     <OutArgument x:TypeArguments="x:String">[interval]</OutArgument>
                   </ui:AssignOperation.To>
                   <ui:AssignOperation.Value>
-                    <InArgument x:TypeArguments="x:String">Weekly</InArgument>
+                    <InArgument x:TypeArguments="x:String">[intervalPref(new Random().Next(0, intervalPref.Length))]</InArgument>
                   </ui:AssignOperation.Value>
                 </ui:AssignOperation>
               </scg:List>
@@ -197,9 +196,9 @@
         <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="UID &lt; 50" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_3" />
       </ui:InterruptibleWhile.Condition>
     </ui:InterruptibleWhile>
-    <If Condition="[File.Exists(&quot;C:\Users\user\Documents\UiPath\Content_Aggregation_Automation-master\testOutput.xlsx&quot;)]" DisplayName="Check if file already exists" sap:VirtualizedContainerService.HintSize="913,436" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[File.Exists(Spreadsheet)]" DisplayName="Check if file already exists" sap:VirtualizedContainerService.HintSize="913,436" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Write to existing excel file" sap:VirtualizedContainerService.HintSize="434,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="testOutput.xlsx">
+        <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Write to existing excel file" sap:VirtualizedContainerService.HintSize="434,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[Spreadsheet]">
           <ui:ExcelApplicationScope.Body>
             <ActivityAction x:TypeArguments="ui:WorkbookApplication">
               <ActivityAction.Argument>
@@ -218,7 +217,7 @@
         </ui:ExcelApplicationScope>
       </If.Then>
       <If.Else>
-        <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Write to new excel file" sap:VirtualizedContainerService.HintSize="434,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" WorkbookPath="testOutput.xlsx">
+        <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Write to new excel file" sap:VirtualizedContainerService.HintSize="434,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" WorkbookPath="[Spreadsheet]">
           <ui:ExcelApplicationScope.Body>
             <ActivityAction x:TypeArguments="ui:WorkbookApplication">
               <ActivityAction.Argument>

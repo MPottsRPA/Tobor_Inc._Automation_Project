@@ -1,4 +1,22 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="RegSandbox" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1416,4146" sap2010:WorkflowViewState.IdRef="RegSandbox_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="RegSandbox" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="bestRandomsFname" Type="InArgument(x:String)" />
+    <x:Property Name="bestRandomsLname" Type="InArgument(x:String)" />
+    <x:Property Name="bestRandomsAddress" Type="InArgument(x:String)" />
+    <x:Property Name="smtpPort" Type="InArgument(x:String)" />
+    <x:Property Name="smtpServer" Type="InArgument(x:String)" />
+    <x:Property Name="outlookUser" Type="InArgument(x:String)" />
+    <x:Property Name="GmailUser" Type="InArgument(x:String)" />
+    <x:Property Name="GmailPass" Type="InArgument(x:String)" />
+    <x:Property Name="spreadsheet" Type="InArgument(x:String)" />
+    <x:Property Name="contentSubject" Type="InArgument(s:String[])" />
+    <x:Property Name="intervalPref" Type="InArgument(s:String[])" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1416,4239</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>RegSandbox_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="25">
       <x:String>System.Activities</x:String>
@@ -29,7 +47,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="24">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="25">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -52,14 +70,14 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.CV</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GenerateUserRequests" sap:VirtualizedContainerService.HintSize="522,3981" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GenerateUserRequests" sap:VirtualizedContainerService.HintSize="596,4074" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="RegisterEmail" />
-      <Variable x:TypeArguments="njl:JObject" Name="LoadedEmailConfig" />
       <Variable x:TypeArguments="x:Int32" Name="usercount" />
       <Variable x:TypeArguments="sd:DataTable" Name="ExcelTable" />
     </Sequence.Variables>
@@ -68,65 +86,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Get email config" sap:VirtualizedContainerService.HintSize="480,498" sap2010:WorkflowViewState.IdRef="Sequence_2">
-      <Sequence.Variables>
-        <Variable x:TypeArguments="x:String" Name="EmailConfig" />
-      </Sequence.Variables>
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
-      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,306" sap2010:WorkflowViewState.IdRef="TryCatch_1">
-        <TryCatch.Variables>
-          <Variable x:TypeArguments="x:Boolean" Name="exist" />
-        </TryCatch.Variables>
-        <TryCatch.Try>
-          <ui:ReadTextFile Content="[EmailConfig]" DisplayName="Read Text File" FileName="config\emailConfig.json" sap:VirtualizedContainerService.HintSize="384,79" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
-        </TryCatch.Try>
-        <TryCatch.Catches>
-          <Catch x:TypeArguments="si:FileNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                <x:Boolean x:Key="IsPinned">False</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ActivityAction x:TypeArguments="si:FileNotFoundException">
-              <ActivityAction.Argument>
-                <DelegateInArgument x:TypeArguments="si:FileNotFoundException" Name="exception" />
-              </ActivityAction.Argument>
-              <Sequence sap:VirtualizedContainerService.HintSize="847,608" sap2010:WorkflowViewState.IdRef="Sequence_4">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <ui:PathExists DisplayName="Path Exists" Exists="[exist]" sap:VirtualizedContainerService.HintSize="805,89" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="C:\Users\user\Documents\UiPath\IndividualProject\config\emailConfig.json" PathType="File" />
-                <If Condition="[exist=true]" sap:VirtualizedContainerService.HintSize="805,430" sap2010:WorkflowViewState.IdRef="If_1">
-                  <If.Then>
-                    <ui:ReadTextFile Content="[EmailConfig]" DisplayName="Read Text File" FileName="config\emailConfig.json" sap:VirtualizedContainerService.HintSize="384,79" sap2010:WorkflowViewState.IdRef="ReadTextFile_2" />
-                  </If.Then>
-                  <If.Else>
-                    <Sequence sap:VirtualizedContainerService.HintSize="376,282" sap2010:WorkflowViewState.IdRef="Sequence_3">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[exception.Message.ToString]" />
-                      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;File was not found!!!&quot;]" TopMost="True" />
-                    </Sequence>
-                  </If.Else>
-                </If>
-              </Sequence>
-            </ActivityAction>
-          </Catch>
-        </TryCatch.Catches>
-      </TryCatch>
-      <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="438,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[LoadedEmailConfig]" JsonString="[EmailConfig]" />
-    </Sequence>
-    <TryCatch DisplayName="Try Catch read email template" sap:VirtualizedContainerService.HintSize="480,306" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+    <TryCatch DisplayName="Try Catch read email template" sap:VirtualizedContainerService.HintSize="554,306" sap2010:WorkflowViewState.IdRef="TryCatch_2">
       <TryCatch.Variables>
         <Variable x:TypeArguments="x:Boolean" Name="exist" />
       </TryCatch.Variables>
@@ -145,7 +105,7 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="si:FileNotFoundException" Name="exception" />
             </ActivityAction.Argument>
-            <Sequence sap:VirtualizedContainerService.HintSize="847,651" sap2010:WorkflowViewState.IdRef="Sequence_6">
+            <Sequence sap:VirtualizedContainerService.HintSize="847,608" sap2010:WorkflowViewState.IdRef="Sequence_6">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -173,7 +133,7 @@
         </Catch>
       </TryCatch.Catches>
     </TryCatch>
-    <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="480,360" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="testOutput.xlsx">
+    <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="554,360" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[spreadsheet]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -198,44 +158,33 @@
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
-    <Sequence DisplayName="Generate REGISTER emails " sap:VirtualizedContainerService.HintSize="480,1138" sap2010:WorkflowViewState.IdRef="Sequence_7">
+    <Sequence DisplayName="Generate REGISTER emails " sap:VirtualizedContainerService.HintSize="554,1315" sap2010:WorkflowViewState.IdRef="Sequence_7">
       <Sequence.Variables>
         <Variable x:TypeArguments="sd:DataTable" Name="firstName" />
         <Variable x:TypeArguments="sd:DataTable" Name="lastName" />
         <Variable x:TypeArguments="sd:DataTable" Name="addressPhone" />
-        <Variable x:TypeArguments="x:Int32" Name="newUserCount">
-          <Variable.Default>
-            <Literal x:TypeArguments="x:Int32" />
-          </Variable.Default>
-        </Variable>
+        <Variable x:TypeArguments="x:Int32" Default="0" Name="newUserCount" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="416,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="GenerateTestData.xaml">
+      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="512,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="GenerateTestData.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractFirstName">
-            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="firstName" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractLastName">
-            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="lastName" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractAddressPhone">
-            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="addressPhone" />
-          </OutArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="quantity">
-            <Literal x:TypeArguments="x:Int32" Value="3" />
-          </InArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="maxCount">
-            <Literal x:TypeArguments="x:Int32" Value="2" />
-          </InArgument>
+          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractFirstName">[firstName]</OutArgument>
+          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractLastName">[lastName]</OutArgument>
+          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractAddressPhone">[addressPhone]</OutArgument>
+          <InArgument x:TypeArguments="x:Int32" x:Key="quantity">3</InArgument>
+          <InArgument x:TypeArguments="x:Int32" x:Key="maxCount">2</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="bestRandomsFname">[bestRandomsFname]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="bestRandomsLname">[bestRandomsLname]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="bestRandomsAddress">[bestRandomsAddress]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <ui:InterruptibleWhile DisplayName="While" sap:VirtualizedContainerService.HintSize="416,919" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+      <ui:InterruptibleWhile DisplayName="While" sap:VirtualizedContainerService.HintSize="512,1096" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
         <ui:InterruptibleWhile.Body>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="380,754" sap2010:WorkflowViewState.IdRef="Sequence_9">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,931" sap2010:WorkflowViewState.IdRef="Sequence_9">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="fname" />
               <Variable x:TypeArguments="x:String" Name="lname" />
@@ -247,13 +196,14 @@
               <Variable x:TypeArguments="x:String" Name="email" />
               <Variable x:TypeArguments="x:String" Name="contentPreference" />
               <Variable x:TypeArguments="x:String" Name="interval" />
+              <Variable x:TypeArguments="x:Int32" Name="PrefArrayInt" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="338,377" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+            <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="434,377" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
               <ui:MultipleAssign.AssignOperations>
                 <scg:List x:TypeArguments="ui:AssignOperation" Capacity="16">
                   <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -325,7 +275,7 @@
                       <OutArgument x:TypeArguments="x:String">[contentPreference]</OutArgument>
                     </ui:AssignOperation.To>
                     <ui:AssignOperation.Value>
-                      <InArgument x:TypeArguments="x:String">Tech</InArgument>
+                      <InArgument x:TypeArguments="x:String">[contentSubject(new Random().Next(0, contentSubject.Length))]</InArgument>
                     </ui:AssignOperation.Value>
                   </ui:AssignOperation>
                   <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
@@ -333,18 +283,38 @@
                       <OutArgument x:TypeArguments="x:String">[interval]</OutArgument>
                     </ui:AssignOperation.To>
                     <ui:AssignOperation.Value>
-                      <InArgument x:TypeArguments="x:String">Weekly</InArgument>
+                      <InArgument x:TypeArguments="x:String">[intervalPref(new Random().Next(0, intervalPref.Length))]</InArgument>
                     </ui:AssignOperation.Value>
                   </ui:AssignOperation>
                 </scg:List>
               </ui:MultipleAssign.AssignOperations>
             </ui:MultipleAssign>
-            <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(RegisterEmail, {fname, lname, addressLine1, city, postCode, country, telephone, email, contentPreference, interval})]" DisplayName="Send SMTP Mail Message" Email="[LoadedEmailConfig(&quot;GmailUsername&quot;).ToString]" EnableSSL="True" From="[email]" sap:VirtualizedContainerService.HintSize="338,145" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Password="[LoadedEmailConfig(&quot;GmailPassword&quot;).ToString]" Port="587" SecureConnection="Auto" Server="[LoadedEmailConfig(&quot;sendServer&quot;).ToString]" Subject="REGISTER" To="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]">
-              <ui:SendMail.Files>
-                <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
-              </ui:SendMail.Files>
-            </ui:SendMail>
-            <Assign sap:VirtualizedContainerService.HintSize="338,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,322" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+              <TryCatch.Try>
+                <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(RegisterEmail, {fname, lname, addressLine1, city, postCode, country, telephone, email, contentPreference, interval})]" DisplayName="Send SMTP Mail Message" Email="[GmailUser]" EnableSSL="True" From="[email]" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_1" IsBodyHtml="False" Password="[GmailPass]" Port="[cint(smtpPort)]" SecureConnection="Auto" Server="[smtpServer]" Subject="REGISTER" To="[outlookUser]">
+                  <ui:SendMail.Files>
+                    <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                  </ui:SendMail.Files>
+                </ui:SendMail>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,160" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Error" Message="[&quot;Failed to send email from gmail to outlook. Error: &quot; +exception.Message.ToString + &quot; &quot; + exception.Data.ToString]" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+            <Assign sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_2">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:Int32">[newUserCount]</OutArgument>
               </Assign.To>
@@ -359,7 +329,7 @@
         </ui:InterruptibleWhile.Condition>
       </ui:InterruptibleWhile>
     </Sequence>
-    <Sequence DisplayName="Generate CHANGE email" sap:VirtualizedContainerService.HintSize="480,950" sap2010:WorkflowViewState.IdRef="Sequence_10">
+    <Sequence DisplayName="Generate CHANGE email" sap:VirtualizedContainerService.HintSize="554,1177" sap2010:WorkflowViewState.IdRef="Sequence_10">
       <Sequence.Variables>
         <Variable x:TypeArguments="sd:DataTable" Name="firstName" />
         <Variable x:TypeArguments="sd:DataTable" Name="lastName" />
@@ -382,26 +352,19 @@
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="338,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="GenerateTestData.xaml">
+      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="438,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="GenerateTestData.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractFirstName">
-            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="firstName" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractLastName">
-            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="lastName" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractAddressPhone">
-            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="addressPhone" />
-          </OutArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="quantity">
-            <Literal x:TypeArguments="x:Int32" Value="1" />
-          </InArgument>
-          <InArgument x:TypeArguments="x:Int32" x:Key="maxCount">
-            <Literal x:TypeArguments="x:Int32" Value="2" />
-          </InArgument>
+          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractFirstName">[firstName]</OutArgument>
+          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractLastName">[lastName]</OutArgument>
+          <OutArgument x:TypeArguments="sd:DataTable" x:Key="ExtractAddressPhone">[addressPhone]</OutArgument>
+          <InArgument x:TypeArguments="x:Int32" x:Key="quantity">1</InArgument>
+          <InArgument x:TypeArguments="x:Int32" x:Key="maxCount">2</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="bestRandomsFname">[bestRandomsFname]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="bestRandomsLname">[bestRandomsLname]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="bestRandomsAddress">[bestRandomsAddress]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
-      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="338,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="438,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
         <ui:MultipleAssign.AssignOperations>
           <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
             <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_11">
@@ -423,7 +386,7 @@
           </scg:List>
         </ui:MultipleAssign.AssignOperations>
       </ui:MultipleAssign>
-      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="338,377" sap2010:WorkflowViewState.IdRef="MultipleAssign_3">
+      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="438,377" sap2010:WorkflowViewState.IdRef="MultipleAssign_3">
         <ui:MultipleAssign.AssignOperations>
           <scg:List x:TypeArguments="ui:AssignOperation" Capacity="16">
             <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_13">
@@ -495,7 +458,7 @@
                 <OutArgument x:TypeArguments="x:String">[contentPreference]</OutArgument>
               </ui:AssignOperation.To>
               <ui:AssignOperation.Value>
-                <InArgument x:TypeArguments="x:String">Tech</InArgument>
+                <InArgument x:TypeArguments="x:String">[contentSubject(new Random().Next(0, contentSubject.Length))]</InArgument>
               </ui:AssignOperation.Value>
             </ui:AssignOperation>
             <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_22">
@@ -503,19 +466,39 @@
                 <OutArgument x:TypeArguments="x:String">[interval]</OutArgument>
               </ui:AssignOperation.To>
               <ui:AssignOperation.Value>
-                <InArgument x:TypeArguments="x:String">Weekly</InArgument>
+                <InArgument x:TypeArguments="x:String">[intervalPref(new Random().Next(0, intervalPref.Length))]</InArgument>
               </ui:AssignOperation.Value>
             </ui:AssignOperation>
           </scg:List>
         </ui:MultipleAssign.AssignOperations>
       </ui:MultipleAssign>
-      <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(RegisterEmail, {fname, lname, addressLine1, city, postCode, country, telephone, email, contentPreference, interval})]" DisplayName="Send SMTP Mail Message" Email="[LoadedEmailConfig(&quot;GmailUsername&quot;).ToString]" EnableSSL="True" From="[email]" sap:VirtualizedContainerService.HintSize="338,145" sap2010:WorkflowViewState.IdRef="SendMail_2" IsBodyHtml="False" Password="[LoadedEmailConfig(&quot;GmailPassword&quot;).ToString]" Port="587" SecureConnection="Auto" Server="[LoadedEmailConfig(&quot;sendServer&quot;).ToString]" Subject="CHANGE" To="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]">
-        <ui:SendMail.Files>
-          <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
-        </ui:SendMail.Files>
-      </ui:SendMail>
+      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,372" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+        <TryCatch.Try>
+          <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(RegisterEmail, {fname, lname, addressLine1, city, postCode, country, telephone, email, contentPreference, interval})]" DisplayName="Send SMTP Mail Message" Email="[GmailUser]" EnableSSL="True" From="[email]" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_2" IsBodyHtml="False" Password="[GmailPass]" Port="[cint(smtpPort)]" SecureConnection="Auto" Server="[smtpServer]" Subject="CHANGE" To="[outlookUser]">
+            <ui:SendMail.Files>
+              <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+            </ui:SendMail.Files>
+          </ui:SendMail>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Error" Message="[&quot;Failed to send email from gmail to outlook. Error: &quot; +exception.Message.ToString + &quot; &quot; + exception.Data.ToString]" />
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
     </Sequence>
-    <Sequence DisplayName="Generate DELETE email" sap:VirtualizedContainerService.HintSize="480,437" sap2010:WorkflowViewState.IdRef="Sequence_12">
+    <Sequence DisplayName="Generate DELETE email" sap:VirtualizedContainerService.HintSize="554,664" sap2010:WorkflowViewState.IdRef="Sequence_12">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Int32" Name="randomInt" />
         <Variable x:TypeArguments="sd:DataRow" Name="randomRow" />
@@ -526,7 +509,7 @@
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="338,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_4">
+      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="438,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_4">
         <ui:MultipleAssign.AssignOperations>
           <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
             <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_23">
@@ -556,11 +539,31 @@
           </scg:List>
         </ui:MultipleAssign.AssignOperations>
       </ui:MultipleAssign>
-      <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(RegisterEmail, {randomRow.Item(&quot;First Name&quot;).ToString, randomRow.Item(&quot;Last Name&quot;).ToString, randomRow.Item(&quot;Address Line 1&quot;).ToString, randomRow.Item(&quot;City&quot;).ToString, randomRow.Item(&quot;Post Code&quot;).ToString, randomRow.Item(&quot;Country&quot;).ToString, randomRow.Item(&quot;Telephone&quot;).ToString, deleteEmail, randomRow.Item(&quot;Content Preference&quot;).ToString, randomRow.Item(&quot;Interval&quot;).ToString})]" DisplayName="Send SMTP Mail Message" Email="[LoadedEmailConfig(&quot;GmailUsername&quot;).ToString]" EnableSSL="True" From="[deleteEmail]" sap:VirtualizedContainerService.HintSize="338,145" sap2010:WorkflowViewState.IdRef="SendMail_3" IsBodyHtml="False" Password="[LoadedEmailConfig(&quot;GmailPassword&quot;).ToString]" Port="587" SecureConnection="Auto" Server="[LoadedEmailConfig(&quot;sendServer&quot;).ToString]" Subject="DELETE" To="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]">
-        <ui:SendMail.Files>
-          <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
-        </ui:SendMail.Files>
-      </ui:SendMail>
+      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,372" sap2010:WorkflowViewState.IdRef="TryCatch_5">
+        <TryCatch.Try>
+          <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" TimeoutMS="{x:Null}" Body="[String.Format(RegisterEmail, {randomRow.Item(&quot;First Name&quot;).ToString, randomRow.Item(&quot;Last Name&quot;).ToString, randomRow.Item(&quot;Address Line 1&quot;).ToString, randomRow.Item(&quot;City&quot;).ToString, randomRow.Item(&quot;Post Code&quot;).ToString, randomRow.Item(&quot;Country&quot;).ToString, randomRow.Item(&quot;Telephone&quot;).ToString, deleteEmail, randomRow.Item(&quot;Content Preference&quot;).ToString, randomRow.Item(&quot;Interval&quot;).ToString})]" DisplayName="Send SMTP Mail Message" Email="[GmailUser]" EnableSSL="True" From="[deleteEmail]" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_3" IsBodyHtml="False" Password="[GmailPass]" Port="[cint(smtpPort)]" SecureConnection="Auto" Server="[smtpServer]" Subject="DELETE" To="[outlookUser]">
+            <ui:SendMail.Files>
+              <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+            </ui:SendMail.Files>
+          </ui:SendMail>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_5">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;Failed to send email from gmail to outlook. Error: &quot; +exception.Message.ToString + &quot; &quot; + exception.Data.ToString]" />
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
     </Sequence>
   </Sequence>
 </Activity>

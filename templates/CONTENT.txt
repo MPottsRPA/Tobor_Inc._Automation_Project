@@ -1,0 +1,15 @@
+Dear {0} {1},
+
+Your {2} {3} content is here!
+
+{4}
+{5}
+
+{6}
+{7}
+
+{8}
+{9}
+
+Regards,
+Tobor Inc.

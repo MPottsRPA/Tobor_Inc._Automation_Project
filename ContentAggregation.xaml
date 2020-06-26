@@ -1,4 +1,29 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ContentAggregation" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1416,1479" sap2010:WorkflowViewState.IdRef="ContentAggregation_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ContentAggregation" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="techWeb1" Type="InArgument(x:String)" />
+    <x:Property Name="techWeb2" Type="InArgument(x:String)" />
+    <x:Property Name="techWeb3" Type="InArgument(x:String)" />
+    <x:Property Name="sportWeb1" Type="InArgument(x:String)" />
+    <x:Property Name="sportWeb2" Type="InArgument(x:String)" />
+    <x:Property Name="sportWeb3" Type="InArgument(x:String)" />
+    <x:Property Name="hobbyWeb1" Type="InArgument(x:String)" />
+    <x:Property Name="hobbyWeb2" Type="InArgument(x:String)" />
+    <x:Property Name="hobbyWeb3" Type="InArgument(x:String)" />
+    <x:Property Name="ExtractTechWeb1" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractTechWeb3" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractTechWeb2" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractSportWeb1" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractSportWeb2" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractSportWeb3" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractHobbyWeb1" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractHobbyWeb2" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="ExtractHobbyWeb3" Type="OutArgument(sd:DataTable)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1416,4138</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ContentAggregation_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="22">
       <x:String>System.Activities</x:String>
@@ -45,66 +70,186 @@
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ContentAggregation" sap:VirtualizedContainerService.HintSize="527,1314" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ContentAggregation" sap:VirtualizedContainerService.HintSize="527,3973" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="485,1222" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="https://thisdayintechhistory.com/">
+    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="485,3881" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="[techWeb1]">
       <ui:OpenBrowser.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,1121" sap2010:WorkflowViewState.IdRef="Sequence_2">
-            <Sequence.Variables>
-              <Variable x:TypeArguments="sd:DataTable" Name="ExtractThisDayInTech" />
-              <Variable x:TypeArguments="x:String" Name="ThisDayInTechStr" />
-              <Variable x:TypeArguments="sd:DataTable" Name="ExtractTechRadar" />
-              <Variable x:TypeArguments="x:String" Name="TechRadarStr" />
-              <Variable x:TypeArguments="sd:DataTable" Name="ExtractTechNewsWorld" />
-              <Variable x:TypeArguments="x:String" Name="TechNewsWorldStr" />
-            </Sequence.Variables>
+          <Sequence DisplayName="Extract Content" sap:VirtualizedContainerService.HintSize="438,3780" sap2010:WorkflowViewState.IdRef="Sequence_6">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractThisDayInTech]" DisplayName="Extract data from This Day In Tech History" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='Content Headings' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='header' class='fl-post-header' idx='1'/&gt;&lt;webctrl tag='h2' class='fl-post-title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='Content Detail' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='fl-post-content clearfix' idx='1'/&gt;&lt;webctrl tag='p' idx='2'/&gt;&lt;/column&gt;&lt;column exact='1' name='Content Dates' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='fl-post-content clearfix' idx='1'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="2" SimulateClick="True">
-              <ui:ExtractData.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3ffd59c6-8481-4381-9f1a-010c38f069e2" InformativeScreenshot="f46f2f183e807529b0b91ae148e867af" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" WaitForReady="COMPLETE">
-                  <ui:Target.TimeoutMS>
-                    <InArgument x:TypeArguments="x:Int32" />
-                  </ui:Target.TimeoutMS>
-                </ui:Target>
-              </ui:ExtractData.Target>
-            </ui:ExtractData>
-            <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_2" Url="https://www.technewsworld.com/" />
-            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechNewsWorld]" DisplayName="Extract TechNewsWorld " ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechNewsWorld Headlines' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechNewsWorld Details' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='teaser' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_9" MaxNumberOfResults="2" SimulateClick="True">
-              <ui:ExtractData.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d239c74b-67f2-4ef0-9fa6-79fbdf594e72" InformativeScreenshot="6fbecae0333671617dd155db474c8bad" Selector="&lt;webctrl id='content-main' tag='DIV' /&gt;" WaitForReady="COMPLETE">
-                  <ui:Target.TimeoutMS>
-                    <InArgument x:TypeArguments="x:Int32" />
-                  </ui:Target.TimeoutMS>
-                </ui:Target>
-              </ui:ExtractData.Target>
-            </ui:ExtractData>
-            <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="https://www.techradar.com/uk/news/world-of-tech?" />
-            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechRadar]" DisplayName="Extract TechRadar tech news" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechRadar Headlines' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='header' idx='1'/&gt;&lt;webctrl tag='h3' class='article-name' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechRadar Details' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' class='synopsis' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_7" MaxNumberOfResults="2" SimulateClick="True">
-              <ui:ExtractData.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="da83b3ae-02c9-4f23-ac05-4df54460fde3" InformativeScreenshot="f64293e2978b3536de6e868f9a4f0bb1" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
-                  <ui:Target.TimeoutMS>
-                    <InArgument x:TypeArguments="x:Int32" />
-                  </ui:Target.TimeoutMS>
-                </ui:Target>
-              </ui:ExtractData.Target>
-            </ui:ExtractData>
-            <ui:OutputDataTable DataTable="[ExtractThisDayInTech]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[ThisDayInTechStr]" />
-            <ui:OutputDataTable DataTable="[ExtractTechNewsWorld]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_3" Text="[TechNewsWorldStr]" />
-            <ui:OutputDataTable DataTable="[ExtractTechRadar]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_2" Text="[TechRadarStr]" />
-            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[ThisDayInTechStr + TechNewsWorldStr + TechRadarStr]" />
-            <ui:CloseWindow Selector="{x:Null}" TimeoutMS="{x:Null}" UseWindow="{x:Null}" DisplayName="Close Window 'chrome.exe  Google'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="CloseWindow_1" InformativeScreenshot="731fe439c8ed2b51622704b2eb6f06b0" WaitForReady="INTERACTIVE" />
+            <Sequence DisplayName="Extract Tech News" sap:VirtualizedContainerService.HintSize="396,1314" sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="TechWeb1Str" />
+                <Variable x:TypeArguments="x:String" Name="TechWeb3Str" />
+                <Variable x:TypeArguments="x:String" Name="TechWeb2Str" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb1]" DisplayName="Extract data from TechWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='header' class='fl-post-header' idx='1'/&gt;&lt;webctrl tag='h2' class='fl-post-title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='fl-post-content clearfix' idx='1'/&gt;&lt;webctrl tag='p' idx='2'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="354,106" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="2" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3ffd59c6-8481-4381-9f1a-010c38f069e2" InformativeScreenshot="f46f2f183e807529b0b91ae148e867af" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="354,59" sap2010:WorkflowViewState.IdRef="NavigateTo_2" Url="[techWeb2]" />
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb2]" DisplayName="Extract TechWeb2 news" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='teaser' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="354,106" sap2010:WorkflowViewState.IdRef="ExtractData_9" MaxNumberOfResults="2" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d239c74b-67f2-4ef0-9fa6-79fbdf594e72" InformativeScreenshot="6fbecae0333671617dd155db474c8bad" Selector="&lt;webctrl id='content-main' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="354,59" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="[techWeb3]" />
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb3]" DisplayName="Extract TechWeb3 news" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='header' idx='1'/&gt;&lt;webctrl tag='h3' class='article-name' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb3 Details' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' class='synopsis' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="354,106" sap2010:WorkflowViewState.IdRef="ExtractData_7" MaxNumberOfResults="2" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="da83b3ae-02c9-4f23-ac05-4df54460fde3" InformativeScreenshot="f64293e2978b3536de6e868f9a4f0bb1" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:OutputDataTable DataTable="[ExtractTechWeb1]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="354,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[TechWeb1Str]" />
+              <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[ExtractTechWeb2]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="354,299" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                <ui:ForEachRow.Body>
+                  <ActivityAction x:TypeArguments="sd:DataRow">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Object">[row("TechWeb2 Details")]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Object">[row("TechWeb2 Details").ToString.Replace("[More...]", "")]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </ActivityAction>
+                </ui:ForEachRow.Body>
+              </ui:ForEachRow>
+              <ui:OutputDataTable DataTable="[ExtractTechWeb2]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="354,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_3" Text="[TechWeb2Str]" />
+              <ui:OutputDataTable DataTable="[ExtractTechWeb3]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="354,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_2" Text="[TechWeb3Str]" />
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="354,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[TechWeb1Str + TechWeb2Str + TechWeb3Str]" />
+            </Sequence>
+            <Sequence DisplayName="Extract Sport News" sap:VirtualizedContainerService.HintSize="396,1074" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="SportWeb1Str" />
+                <Variable x:TypeArguments="x:String" Name="SportWeb2Str" />
+                <Variable x:TypeArguments="x:String" Name="SportWeb3Str" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_3" Url="[sportWeb1]" />
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb1]" DisplayName="Extract SportWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;webctrl tag='strong' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;webctrl tag='small' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_18" MaxNumberOfResults="100" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f8474f14-4f29-4a4c-a72b-b91d3afce604" InformativeScreenshot="7b8002f346a9119bee7c39d59308f13d" Selector="&lt;webctrl id='sb-site' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_4" Url="[sportWeb2]" />
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb2]" DisplayName="Extract SportWeb2" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;webctrl tag='h4' class='news-list__headline' idx='1'/&gt;&lt;webctrl tag='a' class='news-list__headline-link' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;webctrl tag='p' class='news-list__snippet' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_11" MaxNumberOfResults="2" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1282ea5f-d4ce-4f31-966a-1cd8e8cc61cd" InformativeScreenshot="5406389cdc25049410b315513a54b67b" Selector="&lt;webctrl id='widgetLite-3' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_5" Url="[sportWeb3]" />
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb3]" DisplayName="Extract SportWeb3" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='h6' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb3 Details' attr='text'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_16" MaxNumberOfResults="2" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f03becc8-e61a-4940-93ac-a126cdfe9eca" InformativeScreenshot="5cd08b1f701d20bfc5200006f05aa890" Selector="&lt;webctrl tag='ARTICLE' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:OutputDataTable DataTable="[ExtractSportWeb1]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_4" Text="[SportWeb1Str]" />
+              <ui:OutputDataTable DataTable="[ExtractSportWeb2]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_5" Text="[SportWeb2Str]" />
+              <ui:OutputDataTable DataTable="[ExtractSportWeb3]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_6" Text="[SportWeb3Str]" />
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[SportWeb1Str + SportWeb2Str + SportWeb3Str]" />
+            </Sequence>
+            <Sequence DisplayName="Extract Hobbies" sap:VirtualizedContainerService.HintSize="396,1074" sap2010:WorkflowViewState.IdRef="Sequence_7">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="HobbyWeb1Str" />
+                <Variable x:TypeArguments="x:String" Name="HobbyWeb2Str" />
+                <Variable x:TypeArguments="x:String" Name="HobbyWeb3Str" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_6" Url="[hobbyWeb1]" />
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb1]" DisplayName="Extract HobbyWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='header' idx='1'/&gt;&lt;webctrl tag='h3' class='article-name' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' class='synopsis' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_13" MaxNumberOfResults="2" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1d7c3568-e5e8-4c41-975c-c22ebc5140a0" InformativeScreenshot="67a82f682c785c6d0607a91e58dbd6e0" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_7" Url="[hobbyWeb2]" />
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb2]" DisplayName="Extract HobbyWeb2" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='dt-maincol' idx='1'/&gt;&lt;webctrl tag='div' class='panel-pane pane-views pane-frontpage' idx='1'/&gt;&lt;webctrl tag='div' class='view view-frontpage view-id-frontpage view-display-id-page view-dom-id-a0661b79d07fcbe0e06e98d9275560dd' idx='1'/&gt;&lt;webctrl tag='div' class='view-content' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='dt-maincol' idx='1'/&gt;&lt;webctrl tag='div' class='panel-pane pane-views pane-frontpage' idx='1'/&gt;&lt;webctrl tag='div' class='view view-frontpage view-id-frontpage view-display-id-page view-dom-id-a0661b79d07fcbe0e06e98d9275560dd' idx='1'/&gt;&lt;webctrl tag='div' class='view-content' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='h2' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='dt-maincol' idx='1'/&gt;&lt;webctrl tag='div' class='panel-pane pane-views pane-frontpage' idx='1'/&gt;&lt;webctrl tag='div' class='view view-frontpage view-id-frontpage view-display-id-page view-dom-id-a0661b79d07fcbe0e06e98d9275560dd' idx='1'/&gt;&lt;webctrl tag='div' class='view-content' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='panel-flexible panels-flexible-4 clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='panel-flexible-inside panels-flexible-4-inside' idx='1'/&gt;&lt;webctrl tag='div' class='panels-flexible-region panels-flexible-region-4-center panels-flexible-region-first panels-flexible-region-last' idx='1'/&gt;&lt;webctrl tag='div' class='inside panels-flexible-region-inside panels-flexible-region-4-center-inside panels-flexible-region-inside-first panels-flexible-region-inside-last' idx='1'/&gt;&lt;webctrl tag='div' class='panel-pane pane-entity-field pane-node-body' idx='1'/&gt;&lt;webctrl tag='div' class='field field--name-body field--type-text-with-summary field--label-hidden' idx='1'/&gt;&lt;webctrl tag='div' class='field__items' idx='1'/&gt;&lt;webctrl tag='div' class='field__item even' idx='1'/&gt;&lt;webctrl tag='p' idx='2'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_19" MaxNumberOfResults="100" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="174ed654-d7d3-4814-83e9-26624a2638f5" InformativeScreenshot="905455cffb8b698a5a7d0299461f15b5" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="NavigateTo_8" Url="[hobbyWeb3]" />
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb3]" DisplayName="Extract HobbyWeb3" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='header' class='entry-header' idx='1'/&gt;&lt;webctrl tag='h2' class='entry-title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb3 Details' attr='text'&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='entry-content' idx='1'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_17" MaxNumberOfResults="2" SimulateClick="True">
+                <ui:ExtractData.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="faa098af-743e-4449-9b55-b2961e87050b" InformativeScreenshot="e48eea6354d1c83ab3c8f90cafaa25f1" Selector="&lt;webctrl tag='MAIN' /&gt;" WaitForReady="COMPLETE">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                  </ui:Target>
+                </ui:ExtractData.Target>
+              </ui:ExtractData>
+              <ui:OutputDataTable DataTable="[ExtractHobbyWeb1]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_7" Text="[HobbyWeb1Str]" />
+              <ui:OutputDataTable DataTable="[ExtractHobbyWeb2]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_8" Text="[HobbyWeb2Str]" />
+              <ui:OutputDataTable DataTable="[ExtractHobbyWeb3]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_9" Text="[HobbyWeb3Str]" />
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="334,61" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[HobbyWeb1Str + HobbyWeb2Str + HobbyWeb3Str]" />
+            </Sequence>
+            <ui:CloseWindow Selector="{x:Null}" TimeoutMS="{x:Null}" UseWindow="{x:Null}" DisplayName="Close Window 'chrome.exe  Google'" sap:VirtualizedContainerService.HintSize="396,106" sap2010:WorkflowViewState.IdRef="CloseWindow_1" InformativeScreenshot="731fe439c8ed2b51622704b2eb6f06b0" WaitForReady="INTERACTIVE" />
           </Sequence>
         </ActivityAction>
       </ui:OpenBrowser.Body>

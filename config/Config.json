@@ -1,0 +1,28 @@
+{
+	"RandomFname" : "https://www.bestrandoms.com/random-names",
+	"RandomLname" : "https://www.bestrandoms.com/random-last-names",
+	"RandomAddress" : "https://www.bestrandoms.com/random-address-in-uk",
+	
+	"Spreadsheet" : "C:\\Users\\user\\Documents\\UiPath\\Content_Aggregation_Automation\\Content_Aggregation_Automation-master\\testOutput.xlsx",
+
+	"ContentSubject" : "Tech,Sport,Hobbies",
+	"IntervalPreference" : "Daily,Weekdays",
+
+	"GmailUsername" : "melrpa16@gmail.com",
+	"GmailPassword" : "Rinokumura16",
+	"sendGmailPort" : "587",
+	"sendServer" : "smtp.gmail.com",
+	"OutlookUsername" : "robotrpa66@outlook.com",
+
+	"TechWebsite1" : "https://thisdayintechhistory.com",
+	"TechWebsite2" : "https://www.technewsworld.com",
+	"TechWebsite3" : "https://www.techradar.com/uk/news/world-of-tech?",
+
+	"SportWebsite1" : "http://www.sport.co.uk/",
+	"SportWebsite2" : "https://www.skysports.com/news-wire",
+	"SportWebsite3" : "https://www.uksport.gov.uk/news",
+
+	"HobbiesWebsite1" : "https://www.techradar.com/uk/news/gaming?",
+	"HobbiesWebsite2" : "https://www.dicetowernews.com/",
+	"HobbiesWebsite3" : "https://www.starlessriver.com/news/?cat=6"
+}

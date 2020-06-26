@@ -1,4 +1,13 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ReadEmails" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1785,3491" sap2010:WorkflowViewState.IdRef="ReadEmails_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ReadEmails" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="outlookUser" Type="InArgument(x:String)" />
+    <x:Property Name="spreadsheet" Type="InOutArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1785,2953</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ReadEmails_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="50">
       <x:String>System.Activities</x:String>
@@ -30,7 +39,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="18">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="36">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -49,79 +58,26 @@
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ReadEmails" sap:VirtualizedContainerService.HintSize="1795,3326" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ReadEmails" sap:VirtualizedContainerService.HintSize="1795,2788" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="emailList" />
       <Variable x:TypeArguments="sd:DataTable" Name="UserDataTable" />
-      <Variable x:TypeArguments="njl:JObject" Name="LoadedEmailConfig" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="Get email config" sap:VirtualizedContainerService.HintSize="1753,498" sap2010:WorkflowViewState.IdRef="Sequence_11">
-      <Sequence.Variables>
-        <Variable x:TypeArguments="x:String" Name="EmailConfig" />
-      </Sequence.Variables>
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
-      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,306" sap2010:WorkflowViewState.IdRef="TryCatch_1">
-        <TryCatch.Variables>
-          <Variable x:TypeArguments="x:Boolean" Name="exist" />
-        </TryCatch.Variables>
-        <TryCatch.Try>
-          <ui:ReadTextFile Content="[EmailConfig]" DisplayName="Read Text File" FileName="config\emailConfig.json" sap:VirtualizedContainerService.HintSize="384,79" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
-        </TryCatch.Try>
-        <TryCatch.Catches>
-          <Catch x:TypeArguments="si:FileNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                <x:Boolean x:Key="IsPinned">False</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <ActivityAction x:TypeArguments="si:FileNotFoundException">
-              <ActivityAction.Argument>
-                <DelegateInArgument x:TypeArguments="si:FileNotFoundException" Name="exception" />
-              </ActivityAction.Argument>
-              <Sequence sap:VirtualizedContainerService.HintSize="847,651" sap2010:WorkflowViewState.IdRef="Sequence_10">
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <ui:PathExists DisplayName="Path Exists" Exists="[exist]" sap:VirtualizedContainerService.HintSize="805,89" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="C:\Users\user\Documents\UiPath\IndividualProject\config\emailConfig.json" PathType="File" />
-                <If Condition="[exist=true]" sap:VirtualizedContainerService.HintSize="805,430" sap2010:WorkflowViewState.IdRef="If_4">
-                  <If.Then>
-                    <ui:ReadTextFile Content="[EmailConfig]" DisplayName="Read Text File" FileName="config\emailConfig.json" sap:VirtualizedContainerService.HintSize="384,79" sap2010:WorkflowViewState.IdRef="ReadTextFile_2" />
-                  </If.Then>
-                  <If.Else>
-                    <Sequence sap:VirtualizedContainerService.HintSize="376,282" sap2010:WorkflowViewState.IdRef="Sequence_9">
-                      <sap:WorkflowViewStateService.ViewState>
-                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                        </scg:Dictionary>
-                      </sap:WorkflowViewStateService.ViewState>
-                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[exception.Message.ToString]" />
-                      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;File was not found!!!&quot;]" TopMost="True" />
-                    </Sequence>
-                  </If.Else>
-                </If>
-              </Sequence>
-            </ActivityAction>
-          </Catch>
-        </TryCatch.Catches>
-      </TryCatch>
-      <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="438,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[LoadedEmailConfig]" JsonString="[EmailConfig]" />
-    </Sequence>
-    <ui:GetOutlookMailMessages Filter="{x:Null}" TimeoutMS="{x:Null}" Account="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]" DisplayName="Get Outlook Mail Messages" GetAttachements="False" sap:VirtualizedContainerService.HintSize="1753,22" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_1" MailFolder="Inbox" MarkAsRead="False" Messages="[emailList]" OnlyUnreadMessages="False" Top="10" />
-    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="1753,260" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="testOutput.xlsx">
+    <ui:GetOutlookMailMessages Filter="{x:Null}" TimeoutMS="{x:Null}" Account="[outlookUser]" DisplayName="Get Outlook Mail Messages" GetAttachements="False" sap:VirtualizedContainerService.HintSize="1753,22" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_1" MailFolder="Inbox" MarkAsRead="False" Messages="[emailList]" OnlyUnreadMessages="False" Top="10" />
+    <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="1753,260" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[spreadsheet]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -279,7 +235,7 @@
                       </scg:List>
                     </ui:MultipleAssign.AssignOperations>
                   </ui:MultipleAssign>
-                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{UID, fname, lname, address, city, postCode, country, telephone, email, contentPreference, interval}]" DataTable="[UserDataTable]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{UID, fname, lname, address, city, postCode, country, telephone, userEmail, contentPreference, interval}]" DataTable="[UserDataTable]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
                   <TryCatch DisplayName="Try Catch read email template" sap:VirtualizedContainerService.HintSize="438,306" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                     <TryCatch.Variables>
                       <Variable x:TypeArguments="x:Boolean" Name="exist" />
@@ -299,7 +255,7 @@
                           <ActivityAction.Argument>
                             <DelegateInArgument x:TypeArguments="si:FileNotFoundException" Name="exception" />
                           </ActivityAction.Argument>
-                          <Sequence sap:VirtualizedContainerService.HintSize="847,608" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                          <Sequence sap:VirtualizedContainerService.HintSize="847,651" sap2010:WorkflowViewState.IdRef="Sequence_13">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -327,12 +283,12 @@
                       </Catch>
                     </TryCatch.Catches>
                   </TryCatch>
-                  <ui:SendOutlookMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" Account="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]" Body="[String.Format(RegisterConfirmEmail, {fname, lname})]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,145" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" IsBodyHtml="False" IsDraft="False" Subject="RE: REGISTER" To="[userEmail]">
+                  <ui:SendOutlookMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" Account="[outlookUser]" Body="[String.Format(RegisterConfirmEmail, {fname, lname})]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,145" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" IsBodyHtml="False" IsDraft="False" Subject="RE: REGISTER" To="[userEmail]">
                     <ui:SendOutlookMail.Files>
                       <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
                     </ui:SendOutlookMail.Files>
                   </ui:SendOutlookMail>
-                  <ui:MoveOutlookMessage Account="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_1" MailFolder="SUCCESS" MailMessage="[email]" />
+                  <ui:MoveOutlookMessage Account="[outlookUser]" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_1" MailFolder="SUCCESS" MailMessage="[email]" />
                 </Sequence>
               </If.Then>
               <If.Else>
@@ -577,7 +533,7 @@
                               <ActivityAction.Argument>
                                 <DelegateInArgument x:TypeArguments="si:FileNotFoundException" Name="exception" />
                               </ActivityAction.Argument>
-                              <Sequence sap:VirtualizedContainerService.HintSize="847,608" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                              <Sequence sap:VirtualizedContainerService.HintSize="847,651" sap2010:WorkflowViewState.IdRef="Sequence_15">
                                 <sap:WorkflowViewStateService.ViewState>
                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -605,12 +561,12 @@
                           </Catch>
                         </TryCatch.Catches>
                       </TryCatch>
-                      <ui:SendOutlookMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" Account="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]" Body="[String.Format(ChangeConfirmEmail, {fname, lname})]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,145" sap2010:WorkflowViewState.IdRef="SendOutlookMail_2" IsBodyHtml="False" IsDraft="False" Subject="RE: CHANGE" To="[userEmail]">
+                      <ui:SendOutlookMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" Account="[outlookUser]" Body="[String.Format(ChangeConfirmEmail, {fname, lname})]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,145" sap2010:WorkflowViewState.IdRef="SendOutlookMail_2" IsBodyHtml="False" IsDraft="False" Subject="RE: CHANGE" To="[userEmail]">
                         <ui:SendOutlookMail.Files>
                           <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
                         </ui:SendOutlookMail.Files>
                       </ui:SendOutlookMail>
-                      <ui:MoveOutlookMessage Account="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_2" MailFolder="SUCCESS" MailMessage="[email]" />
+                      <ui:MoveOutlookMessage Account="[outlookUser]" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_2" MailFolder="SUCCESS" MailMessage="[email]" />
                     </Sequence>
                   </If.Then>
                   <If.Else>
@@ -682,7 +638,7 @@
                                   <ActivityAction.Argument>
                                     <DelegateInArgument x:TypeArguments="si:FileNotFoundException" Name="exception" />
                                   </ActivityAction.Argument>
-                                  <Sequence sap:VirtualizedContainerService.HintSize="847,608" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                  <Sequence sap:VirtualizedContainerService.HintSize="847,651" sap2010:WorkflowViewState.IdRef="Sequence_17">
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -710,12 +666,12 @@
                               </Catch>
                             </TryCatch.Catches>
                           </TryCatch>
-                          <ui:SendOutlookMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" Account="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]" Body="[String.Format(DeleteConfirmEmail, {removeDetailsArray(1), removeDetailsArray(3)})]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,145" sap2010:WorkflowViewState.IdRef="SendOutlookMail_3" IsBodyHtml="False" IsDraft="False" Subject="RE: DELETE" To="[removeDetailsArray(15)]">
+                          <ui:SendOutlookMail Bcc="{x:Null}" Cc="{x:Null}" MailMessage="{x:Null}" TimeoutMS="{x:Null}" Account="[outlookUser]" Body="[String.Format(DeleteConfirmEmail, {removeDetailsArray(1), removeDetailsArray(3)})]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,145" sap2010:WorkflowViewState.IdRef="SendOutlookMail_3" IsBodyHtml="False" IsDraft="False" Subject="RE: DELETE" To="[removeDetailsArray(15)]">
                             <ui:SendOutlookMail.Files>
                               <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
                             </ui:SendOutlookMail.Files>
                           </ui:SendOutlookMail>
-                          <ui:MoveOutlookMessage Account="[LoadedEmailConfig(&quot;OutlookUsername&quot;).ToString]" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_3" MailFolder="SUCCESS" MailMessage="[email]" />
+                          <ui:MoveOutlookMessage Account="[outlookUser]" DisplayName="Move Outlook Mail Message" sap:VirtualizedContainerService.HintSize="438,87" sap2010:WorkflowViewState.IdRef="MoveOutlookMessage_3" MailFolder="SUCCESS" MailMessage="[email]" />
                         </Sequence>
                       </If.Then>
                     </If>
