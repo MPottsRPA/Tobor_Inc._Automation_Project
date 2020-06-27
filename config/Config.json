@@ -14,6 +14,9 @@
 	"sendServer" : "smtp.gmail.com",
 	"OutlookUsername" : "robotrpa66@outlook.com",
 
+	"ArticleCount" : 2,
+	"ContentSpreadsheet" : "C:\\Users\\user\\Documents\\UiPath\\Content_Aggregation_Automation\\Content_Aggregation_Automation-master\\contentArchive.xlsx",
+
 	"TechWebsite1" : "https://thisdayintechhistory.com",
 	"TechWebsite2" : "https://www.technewsworld.com",
 	"TechWebsite3" : "https://www.techradar.com/uk/news/world-of-tech?",
@@ -23,6 +26,6 @@
 	"SportWebsite3" : "https://www.uksport.gov.uk/news",
 
 	"HobbiesWebsite1" : "https://www.techradar.com/uk/news/gaming?",
-	"HobbiesWebsite2" : "https://www.dicetowernews.com/",
+	"HobbiesWebsite2" : "https://screenrant.com/movie-news/",
 	"HobbiesWebsite3" : "https://www.starlessriver.com/news/?cat=6"
 }

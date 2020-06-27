@@ -20,8 +20,10 @@
     <x:Property Name="hobbyWeb3" Type="OutArgument(x:String)" />
     <x:Property Name="contentSubject" Type="OutArgument(s:String[])" />
     <x:Property Name="intervalPref" Type="OutArgument(s:String[])" />
+    <x:Property Name="articleCount" Type="OutArgument(x:Int32)" />
+    <x:Property Name="contentSpreadsheet" Type="OutArgument(x:String)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1416,1390</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1416,1452</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="19">
@@ -69,7 +71,7 @@
       <AssemblyReference>UiPath.CV</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Config Files" sap:VirtualizedContainerService.HintSize="480,1225" sap2010:WorkflowViewState.IdRef="Sequence_4">
+  <Sequence DisplayName="Config Files" sap:VirtualizedContainerService.HintSize="480,1287" sap2010:WorkflowViewState.IdRef="Sequence_4">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="ConfigText" />
       <Variable x:TypeArguments="njl:JObject" Name="LoadedConfig" />
@@ -132,7 +134,7 @@
       </TryCatch.Catches>
     </TryCatch>
     <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="438,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[LoadedConfig]" JsonString="[ConfigText]" />
-    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="438,687" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+    <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="438,749" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
       <ui:MultipleAssign.AssignOperations>
         <scg:List x:TypeArguments="ui:AssignOperation" Capacity="32">
           <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -293,6 +295,22 @@
             </ui:AssignOperation.To>
             <ui:AssignOperation.Value>
               <InArgument x:TypeArguments="s:String[]">[LoadedConfig("IntervalPreference").ToString.Split({","}, StringSplitOptions.RemoveEmptyEntries)]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_21">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:Int32">[articleCount]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:Int32">[cint(LoadedConfig("ArticleCount"))]</InArgument>
+            </ui:AssignOperation.Value>
+          </ui:AssignOperation>
+          <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_22">
+            <ui:AssignOperation.To>
+              <OutArgument x:TypeArguments="x:String">[contentSpreadsheet]</OutArgument>
+            </ui:AssignOperation.To>
+            <ui:AssignOperation.Value>
+              <InArgument x:TypeArguments="x:String">[LoadedConfig("ContentSpreadsheet").ToString]</InArgument>
             </ui:AssignOperation.Value>
           </ui:AssignOperation>
         </scg:List>
