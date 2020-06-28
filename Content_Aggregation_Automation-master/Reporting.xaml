@@ -451,7 +451,7 @@
 "User email: " + userEmail + Environment.NewLine + 
 "Content subject: " + contentPreference + Environment.NewLine + 
 "Content interval: " +interval +Environment.NewLine + 
-"First pirece of content sent: " + Environment.NewLine + 
+"First piece of content sent: " + Environment.NewLine + 
 ContentTable.Rows(0).Item(contentPreference + "Website1").ToString + Environment.NewLine]</InArgument>
                   </Assign.Value>
                   <sap:WorkflowViewStateService.ViewState>
@@ -838,7 +838,7 @@ ContentTable.Rows(0).Item(contentPreference + "Website1").ToString + Environment
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <p:WordAppendText DisplayName="Append Text" sap:VirtualizedContainerService.HintSize="434,104" sap2010:WorkflowViewState.IdRef="WordAppendText_1" NewLine="False" Text="[userRequestsReport + Environment.NewLine + &#xA;contentDeliveryReport]" />
-            <p:WordExportToPdf DisplayName="Export To PDF" FilePath="[&quot;C:\Users\user\Documents\UiPath\Content_Aggregation_Automation\Content_Aggregation_Automation-master\reports\Dailyreport&quot; + twentyFourHoursAgo + &quot;.pdf&quot;]" sap:VirtualizedContainerService.HintSize="434,84" sap2010:WorkflowViewState.IdRef="WordExportToPdf_1" />
+            <p:WordExportToPdf DisplayName="Export To PDF" FilePath="[&quot;C:\Users\user\Documents\UiPath\Content_Aggregation_Automation\Content_Aggregation_Automation-master\reports\Dailyreport&quot; + Today + &quot;.pdf&quot;]" sap:VirtualizedContainerService.HintSize="434,84" sap2010:WorkflowViewState.IdRef="WordExportToPdf_1" />
           </Sequence>
         </ActivityAction>
       </p:WordApplicationScope.Body>
