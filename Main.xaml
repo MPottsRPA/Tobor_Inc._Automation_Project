@@ -26,7 +26,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="23">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="46">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -48,8 +48,9 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.CV</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Flowchart sap:VirtualizedContainerService.HintSize="1325,1192" sap2010:WorkflowViewState.IdRef="Flowchart_1">
@@ -83,21 +84,9 @@
       <Variable x:TypeArguments="x:String" Name="fname" />
       <Variable x:TypeArguments="ui:QueueItem" Name="ChangeItem" />
       <Variable x:TypeArguments="ui:QueueItem" Name="DeleteItem" />
-      <Variable x:TypeArguments="x:Int32" Name="regTransactionCount">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:Int32" />
-        </Variable.Default>
-      </Variable>
-      <Variable x:TypeArguments="x:Int32" Name="changeTransactionCount">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:Int32" />
-        </Variable.Default>
-      </Variable>
-      <Variable x:TypeArguments="x:Int32" Name="deleteTransactionCount">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:Int32" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="regTransactionCount" />
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="changeTransactionCount" />
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="deleteTransactionCount" />
       <Variable x:TypeArguments="x:Int32" Name="articleCount" />
       <Variable x:TypeArguments="sd:DataTable" Name="ContentTable" />
       <Variable x:TypeArguments="x:String" Name="contentSpreadsheet" />
@@ -117,7 +106,7 @@
     <Flowchart.StartNode>
       <x:Reference>__ReferenceID26</x:Reference>
     </Flowchart.StartNode>
-    <FlowStep x:Name="__ReferenceID5">
+    <FlowStep x:Name="__ReferenceID8">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <av:Point x:Key="ShapeLocation">500,14.5</av:Point>
@@ -186,7 +175,7 @@
                 </sap:WorkflowViewStateService.ViewState>
               </ui:InvokeWorkflowFile>
               <FlowStep.Next>
-                <FlowStep x:Name="__ReferenceID25">
+                <FlowStep x:Name="__ReferenceID24">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <av:Point x:Key="ShapeLocation">90,249</av:Point>
@@ -202,7 +191,7 @@
                     </sap:WorkflowViewStateService.ViewState>
                   </Delay>
                   <FlowStep.Next>
-                    <FlowStep x:Name="__ReferenceID10">
+                    <FlowStep x:Name="__ReferenceID5">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <av:Point x:Key="ShapeLocation">90,309</av:Point>
@@ -212,7 +201,7 @@
                       </sap:WorkflowViewStateService.ViewState>
                       <ui:GetOutlookMailMessages Filter="{x:Null}" TimeoutMS="{x:Null}" Account="[outlookUser]" DisplayName="Get Outlook Mail Messages" GetAttachements="False" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_1" MailFolder="Inbox" MarkAsRead="False" Messages="[emailList]" OnlyUnreadMessages="False" Top="50" />
                       <FlowStep.Next>
-                        <FlowDecision x:Name="__ReferenceID11" Condition="[Not IsNothing(emailList)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+                        <FlowDecision x:Name="__ReferenceID10" Condition="[Not IsNothing(emailList)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <av:Point x:Key="ShapeLocation">340.5,346.5</av:Point>
@@ -253,7 +242,7 @@
                                 </ui:ForEach.Body>
                               </ui:ForEach>
                               <FlowStep.Next>
-                                <FlowStep x:Name="__ReferenceID14">
+                                <FlowStep x:Name="__ReferenceID13">
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                       <av:Point x:Key="ShapeLocation">80,454.5</av:Point>
@@ -289,7 +278,7 @@
                                       </sap:WorkflowViewStateService.ViewState>
                                       <ui:GetQueueItem TimeoutMS="{x:Null}" ContinueOnError="True" DisplayName="Get RegisterQueue Item" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="GetQueueItem_1" QueueType="RegisterQueue" TransactionItem="[RegisterItem]" />
                                       <FlowStep.Next>
-                                        <FlowDecision x:Name="__ReferenceID13" Condition="[Not IsNothing(RegisterItem)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
+                                        <FlowDecision x:Name="__ReferenceID12" Condition="[Not IsNothing(RegisterItem)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
                                           <sap:WorkflowViewStateService.ViewState>
                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -300,7 +289,7 @@
                                             </scg:Dictionary>
                                           </sap:WorkflowViewStateService.ViewState>
                                           <FlowDecision.True>
-                                            <FlowStep x:Name="__ReferenceID15">
+                                            <FlowStep x:Name="__ReferenceID14">
                                               <sap:WorkflowViewStateService.ViewState>
                                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                   <av:Point x:Key="ShapeLocation">330,524.5</av:Point>
@@ -310,18 +299,10 @@
                                               </sap:WorkflowViewStateService.ViewState>
                                               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow Register" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Register.xaml">
                                                 <ui:InvokeWorkflowFile.Arguments>
-                                                  <InArgument x:TypeArguments="ui:QueueItem" x:Key="RegisterItem">
-                                                    <mva:VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="RegisterItem" />
-                                                  </InArgument>
-                                                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="UserDetailsTable">
-                                                    <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="UserDataTable" />
-                                                  </InOutArgument>
-                                                  <InArgument x:TypeArguments="x:String" x:Key="outlookUser">
-                                                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="outlookUser" />
-                                                  </InArgument>
-                                                  <InOutArgument x:TypeArguments="x:Int32" x:Key="transactionCount">
-                                                    <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="regTransactionCount" />
-                                                  </InOutArgument>
+                                                  <InArgument x:TypeArguments="ui:QueueItem" x:Key="RegisterItem">[RegisterItem]</InArgument>
+                                                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="UserDetailsTable">[UserDataTable]</InOutArgument>
+                                                  <InArgument x:TypeArguments="x:String" x:Key="outlookUser">[outlookUser]</InArgument>
+                                                  <InOutArgument x:TypeArguments="x:Int32" x:Key="transactionCount">[regTransactionCount]</InOutArgument>
                                                 </ui:InvokeWorkflowFile.Arguments>
                                                 <sap:WorkflowViewStateService.ViewState>
                                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -335,7 +316,7 @@
                                             </FlowStep>
                                           </FlowDecision.True>
                                           <FlowDecision.False>
-                                            <FlowStep x:Name="__ReferenceID20">
+                                            <FlowStep x:Name="__ReferenceID19">
                                               <sap:WorkflowViewStateService.ViewState>
                                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                   <av:Point x:Key="ShapeLocation">740,524.5</av:Point>
@@ -370,7 +351,7 @@
                                                     </sap:WorkflowViewStateService.ViewState>
                                                   </ui:GetQueueItem>
                                                   <FlowStep.Next>
-                                                    <FlowDecision x:Name="__ReferenceID16" Condition="[Not IsNothing(ChangeItem)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
+                                                    <FlowDecision x:Name="__ReferenceID15" Condition="[Not IsNothing(ChangeItem)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
                                                       <sap:WorkflowViewStateService.ViewState>
                                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -381,7 +362,7 @@
                                                         </scg:Dictionary>
                                                       </sap:WorkflowViewStateService.ViewState>
                                                       <FlowDecision.True>
-                                                        <FlowStep x:Name="__ReferenceID17">
+                                                        <FlowStep x:Name="__ReferenceID16">
                                                           <sap:WorkflowViewStateService.ViewState>
                                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                               <av:Point x:Key="ShapeLocation">110,674.5</av:Point>
@@ -391,18 +372,10 @@
                                                           </sap:WorkflowViewStateService.ViewState>
                                                           <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow Change" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Change.xaml">
                                                             <ui:InvokeWorkflowFile.Arguments>
-                                                              <InArgument x:TypeArguments="ui:QueueItem" x:Key="ChangeItem">
-                                                                <mva:VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="ChangeItem" />
-                                                              </InArgument>
-                                                              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="UserDetailsTable">
-                                                                <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="UserDataTable" />
-                                                              </InOutArgument>
-                                                              <InArgument x:TypeArguments="x:String" x:Key="outlookUser">
-                                                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="outlookUser" />
-                                                              </InArgument>
-                                                              <InOutArgument x:TypeArguments="x:Int32" x:Key="changeTransactionCount">
-                                                                <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="changeTransactionCount" />
-                                                              </InOutArgument>
+                                                              <InArgument x:TypeArguments="ui:QueueItem" x:Key="ChangeItem">[ChangeItem]</InArgument>
+                                                              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="UserDetailsTable">[UserDataTable]</InOutArgument>
+                                                              <InArgument x:TypeArguments="x:String" x:Key="outlookUser">[outlookUser]</InArgument>
+                                                              <InOutArgument x:TypeArguments="x:Int32" x:Key="changeTransactionCount">[changeTransactionCount]</InOutArgument>
                                                             </ui:InvokeWorkflowFile.Arguments>
                                                             <sap:WorkflowViewStateService.ViewState>
                                                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -416,7 +389,7 @@
                                                         </FlowStep>
                                                       </FlowDecision.True>
                                                       <FlowDecision.False>
-                                                        <FlowStep x:Name="__ReferenceID21">
+                                                        <FlowStep x:Name="__ReferenceID20">
                                                           <sap:WorkflowViewStateService.ViewState>
                                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                               <av:Point x:Key="ShapeLocation">510,674.5</av:Point>
@@ -451,10 +424,7 @@
                                                                 </sap:WorkflowViewStateService.ViewState>
                                                               </ui:GetQueueItem>
                                                               <FlowStep.Next>
-                                                                <FlowDecision x:Name="__ReferenceID19" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
-                                                                  <FlowDecision.Condition>
-                                                                    <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="Not IsNothing(DeleteItem)" />
-                                                                  </FlowDecision.Condition>
+                                                                <FlowDecision x:Name="__ReferenceID18" Condition="[Not IsNothing(DeleteItem)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
                                                                   <sap:WorkflowViewStateService.ViewState>
                                                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -465,7 +435,7 @@
                                                                     </scg:Dictionary>
                                                                   </sap:WorkflowViewStateService.ViewState>
                                                                   <FlowDecision.True>
-                                                                    <FlowStep x:Name="__ReferenceID18">
+                                                                    <FlowStep x:Name="__ReferenceID17">
                                                                       <sap:WorkflowViewStateService.ViewState>
                                                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                                           <av:Point x:Key="ShapeLocation">510,824.5</av:Point>
@@ -475,18 +445,10 @@
                                                                       </sap:WorkflowViewStateService.ViewState>
                                                                       <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow Delete" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="Delete.xaml">
                                                                         <ui:InvokeWorkflowFile.Arguments>
-                                                                          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="UserDataTable">
-                                                                            <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="UserDataTable" />
-                                                                          </InOutArgument>
-                                                                          <InArgument x:TypeArguments="ui:QueueItem" x:Key="DeleteItem">
-                                                                            <mva:VisualBasicValue x:TypeArguments="ui:QueueItem" ExpressionText="DeleteItem" />
-                                                                          </InArgument>
-                                                                          <InArgument x:TypeArguments="x:String" x:Key="outlookUser">
-                                                                            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="outlookUser" />
-                                                                          </InArgument>
-                                                                          <InOutArgument x:TypeArguments="x:Int32" x:Key="deleteTransactionCount">
-                                                                            <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="deleteTransactionCount" />
-                                                                          </InOutArgument>
+                                                                          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="UserDataTable">[UserDataTable]</InOutArgument>
+                                                                          <InArgument x:TypeArguments="ui:QueueItem" x:Key="DeleteItem">[DeleteItem]</InArgument>
+                                                                          <InArgument x:TypeArguments="x:String" x:Key="outlookUser">[outlookUser]</InArgument>
+                                                                          <InOutArgument x:TypeArguments="x:Int32" x:Key="deleteTransactionCount">[deleteTransactionCount]</InOutArgument>
                                                                         </ui:InvokeWorkflowFile.Arguments>
                                                                       </ui:InvokeWorkflowFile>
                                                                       <FlowStep.Next>
@@ -495,7 +457,7 @@
                                                                     </FlowStep>
                                                                   </FlowDecision.True>
                                                                   <FlowDecision.False>
-                                                                    <FlowStep x:Name="__ReferenceID22">
+                                                                    <FlowStep x:Name="__ReferenceID21">
                                                                       <sap:WorkflowViewStateService.ViewState>
                                                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                                           <av:Point x:Key="ShapeLocation">920,824.5</av:Point>
@@ -514,7 +476,7 @@
                                                                         </If.Then>
                                                                       </If>
                                                                       <FlowStep.Next>
-                                                                        <FlowStep x:Name="__ReferenceID23">
+                                                                        <FlowStep x:Name="__ReferenceID22">
                                                                           <sap:WorkflowViewStateService.ViewState>
                                                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                                               <av:Point x:Key="ShapeLocation">920,914.5</av:Point>
@@ -522,7 +484,7 @@
                                                                               <av:PointCollection x:Key="ConnectorLocation">920,940 880,940</av:PointCollection>
                                                                             </scg:Dictionary>
                                                                           </sap:WorkflowViewStateService.ViewState>
-                                                                          <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Write changes to excel file" sap:VirtualizedContainerService.HintSize="434,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" WorkbookPath="[spreadsheet]">
+                                                                          <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Write changes to excel file" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" WorkbookPath="[spreadsheet]">
                                                                             <ui:ExcelApplicationScope.Body>
                                                                               <ActivityAction x:TypeArguments="ui:WorkbookApplication">
                                                                                 <ActivityAction.Argument>
@@ -540,7 +502,7 @@
                                                                             </ui:ExcelApplicationScope.Body>
                                                                           </ui:ExcelApplicationScope>
                                                                           <FlowStep.Next>
-                                                                            <FlowStep x:Name="__ReferenceID24">
+                                                                            <FlowStep x:Name="__ReferenceID23">
                                                                               <sap:WorkflowViewStateService.ViewState>
                                                                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                                                   <av:Point x:Key="ShapeLocation">680,914.5</av:Point>
@@ -550,12 +512,8 @@
                                                                               </sap:WorkflowViewStateService.ViewState>
                                                                               <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow OrchestratorContent" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="OrchestratorContent.xaml">
                                                                                 <ui:InvokeWorkflowFile.Arguments>
-                                                                                  <InArgument x:TypeArguments="sd:DataTable" x:Key="UserDataTable">
-                                                                                    <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="UserDataTable" />
-                                                                                  </InArgument>
-                                                                                  <OutArgument x:TypeArguments="x:String" x:Key="currentDay">
-                                                                                    <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="currentDay" />
-                                                                                  </OutArgument>
+                                                                                  <InArgument x:TypeArguments="sd:DataTable" x:Key="UserDataTable">[UserDataTable]</InArgument>
+                                                                                  <OutArgument x:TypeArguments="x:String" x:Key="currentDay">[currentDay]</OutArgument>
                                                                                 </ui:InvokeWorkflowFile.Arguments>
                                                                                 <sap:WorkflowViewStateService.ViewState>
                                                                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -574,42 +532,18 @@
                                                                                   </sap:WorkflowViewStateService.ViewState>
                                                                                   <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow ContentAggreagation" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="ContentAggregation.xaml">
                                                                                     <ui:InvokeWorkflowFile.Arguments>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="techWeb1">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="techWeb1" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="techWeb2">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="techWeb2" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="techWeb3">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="techWeb3" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="sportWeb1">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="sportsWeb1" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="sportWeb2">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="sportsWeb2" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="sportWeb3">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="sportsWeb3" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="hobbyWeb1">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="hobbyWeb1" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="hobbyWeb2">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="hobbyWeb2" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="hobbyWeb3">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="hobbyWeb3" />
-                                                                                      </InArgument>
-                                                                                      <OutArgument x:TypeArguments="sd:DataTable" x:Key="ContentTable">
-                                                                                        <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="ContentTable" />
-                                                                                      </OutArgument>
-                                                                                      <InArgument x:TypeArguments="x:Int32" x:Key="articleCount">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="articleCount" />
-                                                                                      </InArgument>
-                                                                                      <InArgument x:TypeArguments="x:String" x:Key="contentSpreadsheet">
-                                                                                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="contentSpreadsheet" />
-                                                                                      </InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="techWeb1">[techWeb1]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="techWeb2">[techWeb2]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="techWeb3">[techWeb3]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="sportWeb1">[sportsWeb1]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="sportWeb2">[sportsWeb2]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="sportWeb3">[sportsWeb3]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="hobbyWeb1">[hobbyWeb1]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="hobbyWeb2">[hobbyWeb2]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="hobbyWeb3">[hobbyWeb3]</InArgument>
+                                                                                      <OutArgument x:TypeArguments="sd:DataTable" x:Key="ContentTable">[ContentTable]</OutArgument>
+                                                                                      <InArgument x:TypeArguments="x:Int32" x:Key="articleCount">[articleCount]</InArgument>
+                                                                                      <InArgument x:TypeArguments="x:String" x:Key="contentSpreadsheet">[contentSpreadsheet]</InArgument>
                                                                                     </ui:InvokeWorkflowFile.Arguments>
                                                                                     <sap:WorkflowViewStateService.ViewState>
                                                                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -623,19 +557,14 @@
                                                                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                                                           <av:Point x:Key="ShapeLocation">190,914.5</av:Point>
                                                                                           <av:Size x:Key="ShapeSize">200,51</av:Size>
+                                                                                          <av:PointCollection x:Key="ConnectorLocation">290,965.5 290,1004.5</av:PointCollection>
                                                                                         </scg:Dictionary>
                                                                                       </sap:WorkflowViewStateService.ViewState>
                                                                                       <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow ContentDelivery" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="ContentDelivery2.xaml">
                                                                                         <ui:InvokeWorkflowFile.Arguments>
-                                                                                          <InArgument x:TypeArguments="x:String" x:Key="currentDay">
-                                                                                            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="currentDay" />
-                                                                                          </InArgument>
-                                                                                          <InArgument x:TypeArguments="sd:DataTable" x:Key="ContentTable">
-                                                                                            <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="ContentTable" />
-                                                                                          </InArgument>
-                                                                                          <InArgument x:TypeArguments="x:String" x:Key="outlookUser">
-                                                                                            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="outlookUser" />
-                                                                                          </InArgument>
+                                                                                          <InArgument x:TypeArguments="x:String" x:Key="currentDay">[currentDay]</InArgument>
+                                                                                          <InArgument x:TypeArguments="sd:DataTable" x:Key="ContentTable">[ContentTable]</InArgument>
+                                                                                          <InArgument x:TypeArguments="x:String" x:Key="outlookUser">[outlookUser]</InArgument>
                                                                                         </ui:InvokeWorkflowFile.Arguments>
                                                                                         <sap:WorkflowViewStateService.ViewState>
                                                                                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -643,6 +572,26 @@
                                                                                           </scg:Dictionary>
                                                                                         </sap:WorkflowViewStateService.ViewState>
                                                                                       </ui:InvokeWorkflowFile>
+                                                                                      <FlowStep.Next>
+                                                                                        <FlowStep x:Name="__ReferenceID25">
+                                                                                          <sap:WorkflowViewStateService.ViewState>
+                                                                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                                              <av:Point x:Key="ShapeLocation">190,1004.5</av:Point>
+                                                                                              <av:Size x:Key="ShapeSize">200,51</av:Size>
+                                                                                            </scg:Dictionary>
+                                                                                          </sap:WorkflowViewStateService.ViewState>
+                                                                                          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow Reporting" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" UnSafe="False" WorkflowFileName="Reporting.xaml">
+                                                                                            <ui:InvokeWorkflowFile.Arguments>
+                                                                                              <InArgument x:TypeArguments="x:String" x:Key="outlookUser">
+                                                                                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="outlookUser" />
+                                                                                              </InArgument>
+                                                                                              <InArgument x:TypeArguments="sd:DataTable" x:Key="ContentTable">
+                                                                                                <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="ContentTable" />
+                                                                                              </InArgument>
+                                                                                            </ui:InvokeWorkflowFile.Arguments>
+                                                                                          </ui:InvokeWorkflowFile>
+                                                                                        </FlowStep>
+                                                                                      </FlowStep.Next>
                                                                                     </FlowStep>
                                                                                   </FlowStep.Next>
                                                                                 </FlowStep>
@@ -674,7 +623,7 @@
                             </FlowStep>
                           </FlowDecision.True>
                           <FlowDecision.False>
-                            <FlowStep x:Name="__ReferenceID12">
+                            <FlowStep x:Name="__ReferenceID11">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <av:Point x:Key="ShapeLocation">480,364.5</av:Point>
@@ -702,77 +651,33 @@
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <av:Point x:Key="ShapeLocation">120,14.5</av:Point>
           <av:Size x:Key="ShapeSize">200,51</av:Size>
-          <av:PointCollection x:Key="ConnectorLocation">320,40 380,40 380,66.5</av:PointCollection>
+          <av:PointCollection x:Key="ConnectorLocation">320,40 440,40 440,279 60,279 60,320 90,320</av:PointCollection>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Workflow ConfigFiles" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="ConfigFiles.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <OutArgument x:TypeArguments="x:String" x:Key="spreadsheet">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="spreadsheet" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="bestRandomsFname">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="bestRandomsFname" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="bestRandomsLname">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="bestRandomsLname" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="bestRandomsAddress">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="bestRandomsAddress" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="outlookUser">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="outlookUser" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="smtpPort">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="smtpPort" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="smtpServer">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="smtpServer" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="GmailUser">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="GmailUser" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="GmailPass">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="GmailPass" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="techWeb1">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="techWeb1" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="techWeb2">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="techWeb2" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="techWeb3">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="techWeb3" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="sportWeb1">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="sportsWeb1" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="sportWeb2">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="sportsWeb2" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="sportWeb3">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="sportsWeb3" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="hobbyWeb1">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="hobbyWeb1" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="hobbyWeb2">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="hobbyWeb2" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="hobbyWeb3">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="hobbyWeb3" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="s:String[]" x:Key="contentSubject">
-            <mva:VisualBasicReference x:TypeArguments="s:String[]" ExpressionText="contentSubject" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="s:String[]" x:Key="intervalPref">
-            <mva:VisualBasicReference x:TypeArguments="s:String[]" ExpressionText="intervalPref" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:Int32" x:Key="articleCount">
-            <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="articleCount" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="contentSpreadsheet">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="contentSpreadsheet" />
-          </OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="spreadsheet">[spreadsheet]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="bestRandomsFname">[bestRandomsFname]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="bestRandomsLname">[bestRandomsLname]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="bestRandomsAddress">[bestRandomsAddress]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="outlookUser">[outlookUser]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="smtpPort">[smtpPort]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="smtpServer">[smtpServer]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="GmailUser">[GmailUser]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="GmailPass">[GmailPass]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="techWeb1">[techWeb1]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="techWeb2">[techWeb2]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="techWeb3">[techWeb3]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="sportWeb1">[sportsWeb1]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="sportWeb2">[sportsWeb2]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="sportWeb3">[sportsWeb3]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="hobbyWeb1">[hobbyWeb1]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="hobbyWeb2">[hobbyWeb2]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="hobbyWeb3">[hobbyWeb3]</OutArgument>
+          <OutArgument x:TypeArguments="s:String[]" x:Key="contentSubject">[contentSubject]</OutArgument>
+          <OutArgument x:TypeArguments="s:String[]" x:Key="intervalPref">[intervalPref]</OutArgument>
+          <OutArgument x:TypeArguments="x:Int32" x:Key="articleCount">[articleCount]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="contentSpreadsheet">[contentSpreadsheet]</OutArgument>
         </ui:InvokeWorkflowFile.Arguments>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -781,33 +686,34 @@
         </sap:WorkflowViewStateService.ViewState>
       </ui:InvokeWorkflowFile>
       <FlowStep.Next>
-        <FlowDecision x:Name="__ReferenceID8" Condition="[File.Exists(Spreadsheet) And Not IsNothing(spreadsheet)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_1" True="{x:Reference __ReferenceID4}" False="{x:Reference __ReferenceID5}">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <av:Point x:Key="ShapeLocation">340.5,66.5</av:Point>
-              <av:Size x:Key="ShapeSize">79,87</av:Size>
-              <av:PointCollection x:Key="TrueConnector">340.5,110 190,110 190,154.5</av:PointCollection>
-              <av:PointCollection x:Key="FalseConnector">419.5,110 449.5,110 449.5,40 500,40</av:PointCollection>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-        </FlowDecision>
+        <x:Reference>__ReferenceID5</x:Reference>
       </FlowStep.Next>
     </FlowStep>
     <x:Reference>__ReferenceID6</x:Reference>
     <x:Reference>__ReferenceID7</x:Reference>
-    <x:Reference>__ReferenceID8</x:Reference>
+    <FlowDecision Condition="[File.Exists(Spreadsheet) And Not IsNothing(spreadsheet)]" DisplayName="Flow Decision" sap:VirtualizedContainerService.HintSize="79,87" sap2010:WorkflowViewState.IdRef="FlowDecision_1" True="{x:Reference __ReferenceID4}" False="{x:Reference __ReferenceID8}">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">340.5,66.5</av:Point>
+          <av:Size x:Key="ShapeSize">79,87</av:Size>
+          <av:PointCollection x:Key="TrueConnector">340.5,110 190,110 190,154.5</av:PointCollection>
+          <av:PointCollection x:Key="FalseConnector">419.5,110 449.5,110 449.5,40 500,40</av:PointCollection>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </FlowDecision>
     <x:Reference>__ReferenceID9</x:Reference>
+    <x:Reference>__ReferenceID5</x:Reference>
     <x:Reference>__ReferenceID10</x:Reference>
     <x:Reference>__ReferenceID11</x:Reference>
-    <x:Reference>__ReferenceID12</x:Reference>
     <x:Reference>__ReferenceID0</x:Reference>
+    <x:Reference>__ReferenceID12</x:Reference>
     <x:Reference>__ReferenceID13</x:Reference>
     <x:Reference>__ReferenceID14</x:Reference>
-    <x:Reference>__ReferenceID15</x:Reference>
     <x:Reference>__ReferenceID1</x:Reference>
+    <x:Reference>__ReferenceID15</x:Reference>
     <x:Reference>__ReferenceID16</x:Reference>
-    <x:Reference>__ReferenceID17</x:Reference>
     <x:Reference>__ReferenceID2</x:Reference>
+    <x:Reference>__ReferenceID17</x:Reference>
     <x:Reference>__ReferenceID18</x:Reference>
     <x:Reference>__ReferenceID19</x:Reference>
     <x:Reference>__ReferenceID20</x:Reference>
