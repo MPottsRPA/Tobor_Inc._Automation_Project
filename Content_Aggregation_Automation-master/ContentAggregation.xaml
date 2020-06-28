@@ -1,0 +1,944 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ContentAggregation" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="techWeb1" Type="InArgument(x:String)" />
+    <x:Property Name="techWeb2" Type="InArgument(x:String)" />
+    <x:Property Name="techWeb3" Type="InArgument(x:String)" />
+    <x:Property Name="sportWeb1" Type="InArgument(x:String)" />
+    <x:Property Name="sportWeb2" Type="InArgument(x:String)" />
+    <x:Property Name="sportWeb3" Type="InArgument(x:String)" />
+    <x:Property Name="hobbyWeb1" Type="InArgument(x:String)" />
+    <x:Property Name="hobbyWeb2" Type="InArgument(x:String)" />
+    <x:Property Name="hobbyWeb3" Type="InArgument(x:String)" />
+    <x:Property Name="ContentTable" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="articleCount" Type="InArgument(x:Int32)" />
+    <x:Property Name="contentSpreadsheet" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1416,7591</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ContentAggregation_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="23">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Excel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="18">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="ContentAggregation" sap:VirtualizedContainerService.HintSize="1031,7426" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractTechWeb1" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractTechWeb3" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractTechWeb2" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractSportWeb1" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractSportWeb2" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractSportWeb3" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractHobbyWeb1" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractHobbyWeb2" />
+      <Variable x:TypeArguments="sd:DataTable" Name="ExtractHobbyWeb3" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="989,7334" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" Url="[techWeb1]">
+      <ui:OpenBrowser.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Extract Content" sap:VirtualizedContainerService.HintSize="955,7233" sap2010:WorkflowViewState.IdRef="Sequence_6">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Int32" Default="0" Name="count" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Sequence DisplayName="Extract Tech News" sap:VirtualizedContainerService.HintSize="913,1995" sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="TechWeb1Str" />
+                <Variable x:TypeArguments="x:String" Name="TechWeb3Str" />
+                <Variable x:TypeArguments="x:String" Name="TechWeb2Str" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb1]" DisplayName="Extract data from TechWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='header' class='fl-post-header' idx='1'/&gt;&lt;webctrl tag='h2' class='fl-post-title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='fl-post-content clearfix' idx='1'/&gt;&lt;webctrl tag='p' idx='2'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3ffd59c6-8481-4381-9f1a-010c38f069e2" InformativeScreenshot="f46f2f183e807529b0b91ae148e867af" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,491" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'A  https://thisdayintec...'" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="9c2190f7-154c-41a6-b2b9-a2bdf4987d3e" InformativeScreenshot="459e04e615160d60fa0f56910e060b13" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=true]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_1">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb1]" DisplayName="Extract data from TechWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='header' class='fl-post-header' idx='1'/&gt;&lt;webctrl tag='h2' class='fl-post-title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='fl-content fl-content-left col-md-8' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='fl-post-content clearfix' idx='1'/&gt;&lt;webctrl tag='p' idx='2'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_20" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3ffd59c6-8481-4381-9f1a-010c38f069e2" InformativeScreenshot="f46f2f183e807529b0b91ae148e867af" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[&quot;Selector not found for Tech Website 1!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_2" Url="[techWeb2]" />
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb2]" DisplayName="Extract TechWeb2 news" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='teaser' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_29" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d239c74b-67f2-4ef0-9fa6-79fbdf594e72" InformativeScreenshot="6fbecae0333671617dd155db474c8bad" Selector="&lt;webctrl id='content-main' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,451" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'A '" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="997af490-daf8-433e-b92e-ad1f584f3e9c" InformativeScreenshot="88a7a02ab888c4a1a871c76447f38de6" Selector="&lt;webctrl id='content-main' tag='DIV' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=True]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_2">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb2]" DisplayName="Extract TechWeb2 news" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='content-block' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='div' class='teaser' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_30" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d239c74b-67f2-4ef0-9fa6-79fbdf594e72" InformativeScreenshot="6fbecae0333671617dd155db474c8bad" Selector="&lt;webctrl id='content-main' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[&quot;Selector not found for Tech Website 2!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="[techWeb3]" />
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb3]" DisplayName="Extract TechWeb3 news" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='header' idx='1'/&gt;&lt;webctrl tag='h3' class='article-name' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb3 Details' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' class='synopsis' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_31" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="da83b3ae-02c9-4f23-ac05-4df54460fde3" InformativeScreenshot="f64293e2978b3536de6e868f9a4f0bb1" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,491" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'H3'" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_3">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cbfe7a68-371d-41cc-918f-b9cec0140dda" InformativeScreenshot="6a4f8485564951955cfc20cff6d87a10" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=True]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_3">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractTechWeb3]" DisplayName="Extract TechWeb3 news" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='TechWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='header' idx='1'/&gt;&lt;webctrl tag='h3' class='article-name' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='TechWeb3 Details' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' class='synopsis' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_32" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="da83b3ae-02c9-4f23-ac05-4df54460fde3" InformativeScreenshot="f64293e2978b3536de6e868f9a4f0bb1" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Error" Message="[&quot;Selector not found for Tech Web 3!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:OutputDataTable DataTable="[ExtractTechWeb1]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[TechWeb1Str]" />
+              <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[ExtractTechWeb2]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="438,299" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                <ui:ForEachRow.Body>
+                  <ActivityAction x:TypeArguments="sd:DataRow">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Object">[row("TechWeb2 Details")]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Object">[row("TechWeb2 Details").ToString.Replace("[More...]", "")]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                  </ActivityAction>
+                </ui:ForEachRow.Body>
+              </ui:ForEachRow>
+              <ui:OutputDataTable DataTable="[ExtractTechWeb2]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_3" Text="[TechWeb2Str]" />
+              <ui:OutputDataTable DataTable="[ExtractTechWeb3]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_2" Text="[TechWeb3Str]" />
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="438,61" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[TechWeb1Str + TechWeb2Str + TechWeb3Str]" />
+            </Sequence>
+            <Sequence DisplayName="Extract Sport News" sap:VirtualizedContainerService.HintSize="913,1755" sap2010:WorkflowViewState.IdRef="Sequence_5">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="SportWeb1Str" />
+                <Variable x:TypeArguments="x:String" Name="SportWeb2Str" />
+                <Variable x:TypeArguments="x:String" Name="SportWeb3Str" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_3" Url="[sportWeb1]" />
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb1]" DisplayName="Extract SportWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;webctrl tag='strong' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;webctrl tag='small' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_23" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f8474f14-4f29-4a4c-a72b-b91d3afce604" InformativeScreenshot="7b8002f346a9119bee7c39d59308f13d" Selector="&lt;webctrl id='sb-site' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,451" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'TD'" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_4">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b4c9ddf5-1870-4df8-b7e1-eaf65045289d" InformativeScreenshot="da38998c8866d4f613eb5b306539abaf" Selector="&lt;webctrl id='sb-site' tag='DIV' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=True]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_4">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb1]" DisplayName="Extract SportWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;webctrl tag='strong' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='container' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 column' idx='1'/&gt;&lt;webctrl tag='div' class='row clearfix' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-8 column' idx='1'/&gt;&lt;webctrl tag='div' class='col-md-12 col-sm-12 column'/&gt;&lt;webctrl tag='div' class='row' idx='1'/&gt;&lt;webctrl tag='div' class='col-sm-6' idx='1'/&gt;&lt;webctrl tag='table' class='table' idx='1'/&gt;&lt;webctrl tag='tbody' idx='1'/&gt;&lt;webctrl tag='tr'/&gt;&lt;webctrl tag='td' idx='2'/&gt;&lt;webctrl tag='small' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_24" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f8474f14-4f29-4a4c-a72b-b91d3afce604" InformativeScreenshot="7b8002f346a9119bee7c39d59308f13d" Selector="&lt;webctrl id='sb-site' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Error" Message="[&quot;Selector not found for Sport Website 1!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_4" Url="[sportWeb2]" />
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_5">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb2]" DisplayName="Extract SportWeb2" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;webctrl tag='h4' class='news-list__headline' idx='1'/&gt;&lt;webctrl tag='a' class='news-list__headline-link' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;webctrl tag='p' class='news-list__snippet' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_11" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1282ea5f-d4ce-4f31-966a-1cd8e8cc61cd" InformativeScreenshot="5406389cdc25049410b315513a54b67b" Selector="&lt;webctrl id='widgetLite-3' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,491" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'A '" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_5">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="522c2920-7cbf-4be4-8c48-1d091880bc4b" InformativeScreenshot="d787897e0aa15c641528de262f13a3ab" Selector="&lt;webctrl id='widgetLite-3' tag='DIV' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=True]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_5">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb2]" DisplayName="Extract SportWeb2" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;webctrl tag='h4' class='news-list__headline' idx='1'/&gt;&lt;webctrl tag='a' class='news-list__headline-link' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='news-list__item news-list__item--show-thumb-bp30'/&gt;&lt;webctrl tag='div' class='news-list__body' idx='1'/&gt;&lt;webctrl tag='p' class='news-list__snippet' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_25" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1282ea5f-d4ce-4f31-966a-1cd8e8cc61cd" InformativeScreenshot="5406389cdc25049410b315513a54b67b" Selector="&lt;webctrl id='widgetLite-3' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;Selector not found for Sport Website 2!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_5" Url="[sportWeb3]" />
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_6">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb3]" DisplayName="Extract SportWeb3" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='h6' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb3 Details' attr='text'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_16" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f03becc8-e61a-4940-93ac-a126cdfe9eca" InformativeScreenshot="5cd08b1f701d20bfc5200006f05aa890" Selector="&lt;webctrl tag='ARTICLE' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_6">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,491" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'A '" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_6">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d7ba6037-3aa1-4c41-a32d-418fe107cfc4" InformativeScreenshot="9112e51c233b8f83f475a877f33d1bb0" Selector="&lt;webctrl tag='ARTICLE' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=True]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_6">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractSportWeb3]" DisplayName="Extract SportWeb3" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='SportWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='h6' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='SportWeb3 Details' attr='text'&gt;&lt;webctrl tag='ul' class='search-results' idx='1'/&gt;&lt;webctrl tag='li'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_26" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f03becc8-e61a-4940-93ac-a126cdfe9eca" InformativeScreenshot="5cd08b1f701d20bfc5200006f05aa890" Selector="&lt;webctrl tag='ARTICLE' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Error" Message="[&quot;Selector not found for Sport Website 3!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:OutputDataTable DataTable="[ExtractSportWeb1]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_4" Text="[SportWeb1Str]" />
+              <ui:OutputDataTable DataTable="[ExtractSportWeb2]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_5" Text="[SportWeb2Str]" />
+              <ui:OutputDataTable DataTable="[ExtractSportWeb3]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_6" Text="[SportWeb3Str]" />
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="438,61" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[SportWeb1Str + SportWeb2Str + SportWeb3Str]" />
+            </Sequence>
+            <Sequence DisplayName="Extract Hobbies" sap:VirtualizedContainerService.HintSize="913,1755" sap2010:WorkflowViewState.IdRef="Sequence_7">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="HobbyWeb1Str" />
+                <Variable x:TypeArguments="x:String" Name="HobbyWeb2Str" />
+                <Variable x:TypeArguments="x:String" Name="HobbyWeb3Str" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_6" Url="[hobbyWeb1]" />
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_7">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb1]" DisplayName="Extract HobbyWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='header' idx='1'/&gt;&lt;webctrl tag='h3' class='article-name' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' class='synopsis' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_13" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1d7c3568-e5e8-4c41-975c-c22ebc5140a0" InformativeScreenshot="67a82f682c785c6d0607a91e58dbd6e0" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_7">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,491" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'H3'" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_7">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1d14eea7-de08-4cf5-8a33-cf8ddbdf51a6" InformativeScreenshot="fa7e03d449912fd8ca79db3d487f1a6b" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=True]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_7">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb1]" DisplayName="Extract HobbyWeb1" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb1 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='header' idx='1'/&gt;&lt;webctrl tag='h3' class='article-name' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb1 Details' attr='text'&gt;&lt;webctrl tag='div' class='listingResults ' idx='1'/&gt;&lt;webctrl tag='div'/&gt;&lt;webctrl tag='a' class='article-link' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='content' idx='1'/&gt;&lt;webctrl tag='p' class='synopsis' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_27" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1d7c3568-e5e8-4c41-975c-c22ebc5140a0" InformativeScreenshot="67a82f682c785c6d0607a91e58dbd6e0" Selector="&lt;webctrl parentid='content' tag='SECTION' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[&quot;Selector not found for Hobbies Website 1!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_7" Url="[hobbyWeb2]" />
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_8">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb2]" DisplayName="Extract HobbyWeb2" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='w-website' idx='1'/&gt;&lt;webctrl tag='div' class='w-content ' idx='1'/&gt;&lt;webctrl tag='div' class='w-listing page1' idx='1'/&gt;&lt;webctrl tag='div' class='listing' idx='1'/&gt;&lt;webctrl tag='section' class='listing-content' idx='1'/&gt;&lt;webctrl tag='div' class='sentinel-category-list browse-half clip-half' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='w-website' idx='1'/&gt;&lt;webctrl tag='div' class='w-content ' idx='1'/&gt;&lt;webctrl tag='div' class='w-listing page1' idx='1'/&gt;&lt;webctrl tag='div' class='listing' idx='1'/&gt;&lt;webctrl tag='section' class='listing-content' idx='1'/&gt;&lt;webctrl tag='div' class='sentinel-category-list browse-half clip-half' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='h3' class='bc-title' idx='1'/&gt;&lt;webctrl tag='a' class='bc-title-link' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='w-website' idx='1'/&gt;&lt;webctrl tag='div' class='w-content ' idx='1'/&gt;&lt;webctrl tag='div' class='w-listing page1' idx='1'/&gt;&lt;webctrl tag='div' class='listing' idx='1'/&gt;&lt;webctrl tag='section' class='listing-content' idx='1'/&gt;&lt;webctrl tag='div' class='sentinel-category-list browse-half clip-half' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='p' class='bc-excerpt' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_34" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7def9e4d-4b3d-4299-8d29-6f37f0949e2b" InformativeScreenshot="bf57a52bc2ffd572f5359088c787c02e" Selector="&lt;webctrl tag='BODY' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_8">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,491" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'A '" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_8">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="dbb856e5-426b-4baf-83c7-77025be3bbdc" InformativeScreenshot="f7fe4af55cc8a9ad63805c1c1a2f2a33" Selector="&lt;webctrl tag='BODY' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=True]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_8">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb2]" DisplayName="Extract HobbyWeb2" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='w-website' idx='1'/&gt;&lt;webctrl tag='div' class='w-content ' idx='1'/&gt;&lt;webctrl tag='div' class='w-listing page1' idx='1'/&gt;&lt;webctrl tag='div' class='listing' idx='1'/&gt;&lt;webctrl tag='section' class='listing-content' idx='1'/&gt;&lt;webctrl tag='div' class='sentinel-category-list browse-half clip-half' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb2 Headlines' attr='text'&gt;&lt;webctrl tag='div' class='w-website' idx='1'/&gt;&lt;webctrl tag='div' class='w-content ' idx='1'/&gt;&lt;webctrl tag='div' class='w-listing page1' idx='1'/&gt;&lt;webctrl tag='div' class='listing' idx='1'/&gt;&lt;webctrl tag='section' class='listing-content' idx='1'/&gt;&lt;webctrl tag='div' class='sentinel-category-list browse-half clip-half' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='h3' class='bc-title' idx='1'/&gt;&lt;webctrl tag='a' class='bc-title-link' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb2 Details' attr='text'&gt;&lt;webctrl tag='div' class='w-website' idx='1'/&gt;&lt;webctrl tag='div' class='w-content ' idx='1'/&gt;&lt;webctrl tag='div' class='w-listing page1' idx='1'/&gt;&lt;webctrl tag='div' class='listing' idx='1'/&gt;&lt;webctrl tag='section' class='listing-content' idx='1'/&gt;&lt;webctrl tag='div' class='sentinel-category-list browse-half clip-half' idx='1'/&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='p' class='bc-excerpt' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_35" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7def9e4d-4b3d-4299-8d29-6f37f0949e2b" InformativeScreenshot="bf57a52bc2ffd572f5359088c787c02e" Selector="&lt;webctrl tag='BODY' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Error" Message="[&quot;Selector not found for Hobbies Website 2!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="438,59" sap2010:WorkflowViewState.IdRef="NavigateTo_8" Url="[hobbyWeb3]" />
+              <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,333" sap2010:WorkflowViewState.IdRef="TryCatch_9">
+                <TryCatch.Try>
+                  <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb3]" DisplayName="Extract HobbyWeb3" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='header' class='entry-header' idx='1'/&gt;&lt;webctrl tag='h2' class='entry-title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb3 Details' attr='text'&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='entry-content' idx='1'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_17" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                    <ui:ExtractData.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="faa098af-743e-4449-9b55-b2961e87050b" InformativeScreenshot="e48eea6354d1c83ab3c8f90cafaa25f1" Selector="&lt;webctrl tag='MAIN' /&gt;" WaitForReady="COMPLETE">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
+                      </ui:Target>
+                    </ui:ExtractData.Target>
+                  </ui:ExtractData>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="ui:SelectorNotFoundException" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_9">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ActivityAction x:TypeArguments="ui:SelectorNotFoundException">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:SelectorNotFoundException" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence sap:VirtualizedContainerService.HintSize="755,491" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:Boolean" Name="exists" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:UiElementExists DisplayName="Element Exists 'A  https://www.starless...'" Exists="[exists]" sap:VirtualizedContainerService.HintSize="713,106" sap2010:WorkflowViewState.IdRef="UiElementExists_9">
+                          <ui:UiElementExists.Target>
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b9c90d8e-8d26-47f5-854f-7307c20d4736" InformativeScreenshot="6ef2e0f20f8d6e025ee52baa857878fe" Selector="&lt;webctrl tag='MAIN' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
+                              <ui:Target.WaitForReady>
+                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                              </ui:Target.WaitForReady>
+                            </ui:Target>
+                          </ui:UiElementExists.Target>
+                        </ui:UiElementExists>
+                        <If Condition="[exists=True]" sap:VirtualizedContainerService.HintSize="713,253" sap2010:WorkflowViewState.IdRef="If_9">
+                          <If.Then>
+                            <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[ExtractHobbyWeb3]" DisplayName="Extract HobbyWeb3" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='article'/&gt;&lt;/row&gt;&lt;column exact='1' name='HobbyWeb3 Headlines' attr='text'&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='header' class='entry-header' idx='1'/&gt;&lt;webctrl tag='h2' class='entry-title' idx='1'/&gt;&lt;webctrl tag='a' idx='1'/&gt;&lt;/column&gt;&lt;column exact='1' name='HobbyWeb3 Details' attr='text'&gt;&lt;webctrl tag='article'/&gt;&lt;webctrl tag='div' class='entry-content' idx='1'/&gt;&lt;webctrl tag='p' idx='1'/&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="ExtractData_33" MaxNumberOfResults="[articleCount]" SimulateClick="True">
+                              <ui:ExtractData.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="faa098af-743e-4449-9b55-b2961e87050b" InformativeScreenshot="e48eea6354d1c83ab3c8f90cafaa25f1" Selector="&lt;webctrl tag='MAIN' /&gt;" WaitForReady="COMPLETE">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                </ui:Target>
+                              </ui:ExtractData.Target>
+                            </ui:ExtractData>
+                          </If.Then>
+                          <If.Else>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Error" Message="[&quot;Selector not found for Hobbies Website 3!&quot;]" />
+                          </If.Else>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+              <ui:OutputDataTable DataTable="[ExtractHobbyWeb1]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_7" Text="[HobbyWeb1Str]" />
+              <ui:OutputDataTable DataTable="[ExtractHobbyWeb2]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_8" Text="[HobbyWeb2Str]" />
+              <ui:OutputDataTable DataTable="[ExtractHobbyWeb3]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="438,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_9" Text="[HobbyWeb3Str]" />
+              <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="438,61" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[HobbyWeb1Str + HobbyWeb2Str + HobbyWeb3Str]" />
+            </Sequence>
+            <ui:CloseWindow Selector="{x:Null}" TimeoutMS="{x:Null}" UseWindow="{x:Null}" DisplayName="Close Window 'chrome.exe  Google'" sap:VirtualizedContainerService.HintSize="913,106" sap2010:WorkflowViewState.IdRef="CloseWindow_1" InformativeScreenshot="731fe439c8ed2b51622704b2eb6f06b0" WaitForReady="INTERACTIVE" />
+            <ui:BuildDataTable DataTable="[ContentTable]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="913,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;TechWebsite1&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;TechWebsite2&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;TechWebsite3&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;SportWebsite1&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;SportWebsite2&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;SportWebsite3&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;HobbiesWebsite1&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;HobbiesWebsite2&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;HobbiesWebsite3&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;DateScraped&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+            <ui:InterruptibleWhile DisplayName="While" sap:VirtualizedContainerService.HintSize="913,796" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+              <ui:InterruptibleWhile.Body>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="380,631" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:String" Name="TechWeb1str" />
+                    <Variable x:TypeArguments="x:String" Name="TechWeb2str" />
+                    <Variable x:TypeArguments="x:String" Name="TechWeb3str" />
+                    <Variable x:TypeArguments="x:String" Name="SportWeb1str" />
+                    <Variable x:TypeArguments="x:String" Name="SportWeb2str" />
+                    <Variable x:TypeArguments="x:String" Name="SportWeb3str" />
+                    <Variable x:TypeArguments="x:String" Name="HobbiesWeb1str" />
+                    <Variable x:TypeArguments="x:String" Name="HobbiesWeb2str" />
+                    <Variable x:TypeArguments="x:String" Name="HobbiesWeb3str" />
+                    <Variable x:TypeArguments="x:String" Name="currentDate" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="338,377" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                    <ui:MultipleAssign.AssignOperations>
+                      <scg:List x:TypeArguments="ui:AssignOperation" Capacity="16">
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[TechWeb1str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractTechWeb1.Rows(count).Item("TechWeb1 Headlines").ToString + Environment.NewLine + ExtractTechWeb1.Rows(count).Item("TechWeb1 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[TechWeb2str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractTechWeb2.Rows(count).Item("TechWeb2 Headlines").ToString + Environment.NewLine + ExtractTechWeb2.Rows(count).Item("TechWeb2 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[TechWeb3str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractTechWeb3.Rows(count).Item("TechWeb3 Headlines").ToString + Environment.NewLine + ExtractTechWeb3.Rows(count).Item("TechWeb3 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[SportWeb1str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractSportWeb1.Rows(count).Item("SportWeb1 Headlines").ToString + Environment.NewLine + ExtractSportWeb1.Rows(count).Item("SportWeb1 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[SportWeb2str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractSportWeb2.Rows(count).Item("SportWeb2 Headlines").ToString + Environment.NewLine + ExtractSportWeb2.Rows(count).Item("SportWeb2 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[SportWeb3str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractSportWeb3.Rows(count).Item("SportWeb3 Headlines").ToString + Environment.NewLine + ExtractSportWeb3.Rows(count).Item("SportWeb3 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[HobbiesWeb1str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractHobbyWeb1.Rows(count).Item("HobbyWeb1 Headlines").ToString + Environment.NewLine + ExtractHobbyWeb1.Rows(count).Item("HobbyWeb1 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[HobbiesWeb2str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractHobbyWeb2.Rows(count).Item("HobbyWeb2 Headlines").ToString + Environment.NewLine + ExtractHobbyWeb2.Rows(count).Item("HobbyWeb2 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_9">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[HobbiesWeb3str]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[ExtractHobbyWeb3.Rows(count).Item("HobbyWeb3 Headlines").ToString + Environment.NewLine + ExtractHobbyWeb3.Rows(count).Item("HobbyWeb3 Details").ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[currentDate]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[Date.Now.ToString]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                      </scg:List>
+                    </ui:MultipleAssign.AssignOperations>
+                  </ui:MultipleAssign>
+                  <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{TechWeb1str, TechWeb2str, TechWeb3str, SportWeb1str, SportWeb2str, SportWeb3str, HobbiesWeb1str, HobbiesWeb2str, HobbiesWeb3str, currentDate}]" DataTable="[ContentTable]" DisplayName="Add Data Row" sap:VirtualizedContainerService.HintSize="338,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                  <Assign sap:VirtualizedContainerService.HintSize="338,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[count]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[count + 1]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </ui:InterruptibleWhile.Body>
+              <ui:InterruptibleWhile.Condition>
+                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="count &lt; articleCount" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+              </ui:InterruptibleWhile.Condition>
+            </ui:InterruptibleWhile>
+            <If Condition="[File.Exists(contentSpreadsheet)]" sap:VirtualizedContainerService.HintSize="913,435" sap2010:WorkflowViewState.IdRef="If_10">
+              <If.Then>
+                <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_2" WorkbookPath="[contentSpreadsheet]">
+                  <ui:ExcelApplicationScope.Body>
+                    <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                      </ActivityAction.Argument>
+                      <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,179" sap2010:WorkflowViewState.IdRef="Sequence_25">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:ExcelAppendRange DataTable="[ContentTable]" DisplayName="Append Range" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelAppendRange_1" SheetName="Sheet1" />
+                      </Sequence>
+                    </ActivityAction>
+                  </ui:ExcelApplicationScope.Body>
+                </ui:ExcelApplicationScope>
+              </If.Then>
+              <If.Else>
+                <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="434,288" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[contentSpreadsheet]">
+                  <ui:ExcelApplicationScope.Body>
+                    <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+                      </ActivityAction.Argument>
+                      <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,179" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:ExcelWriteRange AddHeaders="True" DataTable="[ContentTable]" DisplayName="Write Range" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_2" SheetName="Sheet1" StartingCell="A1" />
+                      </Sequence>
+                    </ActivityAction>
+                  </ui:ExcelApplicationScope.Body>
+                </ui:ExcelApplicationScope>
+              </If.Else>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:OpenBrowser.Body>
+    </ui:OpenBrowser>
+  </Sequence>
+</Activity>

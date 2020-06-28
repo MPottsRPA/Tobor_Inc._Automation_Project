@@ -1,0 +1,6 @@
+Dear {0} {1},
+
+This email is to confirm that your details have been successfully updated.
+
+Regards,
+Tobor Inc.

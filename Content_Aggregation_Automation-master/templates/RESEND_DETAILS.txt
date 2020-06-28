@@ -1,0 +1,13 @@
+Dear {0} {1},
+
+It appears something went wrong with your registration. Please resend your details, ensuring that all fields are provided and that they are in the correct format as described below:
+First name:
+Last name:
+Address
+Content preference
+Frequency:
+
+(Note that frequency can only be either daily or weekdays only)
+
+Regards,
+{2}
